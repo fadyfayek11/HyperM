@@ -18,6 +18,7 @@ public class EmployeeClass {
    private String type;
 /* main constractor*/
     public EmployeeClass(String phonenumber, String password, String name, String type) {
+       /*password*/
         if(password.length()<8)
         {
             System.out.println("the password should be more than 8 char");
@@ -26,6 +27,7 @@ public class EmployeeClass {
         {
             this.password = password;
         }
+        /*phone number*/
         if(phonenumber.length()<11)
         {
             System.out.println("incorrect phone number");
@@ -34,11 +36,24 @@ public class EmployeeClass {
         {
             this.phonenumber = phonenumber;
         }
+        /*set type*/
+         if(type=="male")
+        {
+            this.type = type;
+        }
+        else if(type=="female")
+        {
+            this.type = type;
+        }
+        else
+        {
+            System.out.println("please enter the type 'male-female' ");
+        }
         
        // this.phonenumber = phonenumber;
         //this.password = password;
         this.name = name;
-        this.type = type;
+        
     }
 /*empty constructor*/
     public EmployeeClass() {
