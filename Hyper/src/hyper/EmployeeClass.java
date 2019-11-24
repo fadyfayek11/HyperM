@@ -6,8 +6,12 @@
 package hyper;
 
 
+
+
 /*employee class */
 public class EmployeeClass {
+   
+
    private String phonenumber;
    private String password;
    private String name;
@@ -44,7 +48,7 @@ public class EmployeeClass {
     public String getNumber() {
         return phonenumber;
     }
-
+/*phone number*/
     public void setNumber(String phonenumber) {
         if(phonenumber.length()<11)
         {
