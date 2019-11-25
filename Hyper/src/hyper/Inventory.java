@@ -17,7 +17,7 @@ public class Inventory extends Products{
     }
     
          //add product
-    public void AddProducts(int date, String name ,int productid , int amount , double productPrice){
+    public void AddProducts(int date, String name ,int productid , int amount , double productprice){
         //will be done after making the database or files
     }
     
