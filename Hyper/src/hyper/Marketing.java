@@ -14,11 +14,13 @@ public class Marketing extends Products {
     //default constractor
     public Marketing() {
     }
-    
+       
+      //set reports about products 
     public void SetReports(){
         
     }
-    
+         
+       //method make discount
     public void Discount(){
         
     }
