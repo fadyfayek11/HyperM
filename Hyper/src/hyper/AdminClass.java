@@ -2,12 +2,12 @@
 package hyper;
 
 
-public class Admin extends EmployeeClass{
+public class AdminClass extends EmployeeClass{
     
     
     
   /*main constractor*/  
-public  Admin(int id_of_employee, String phonenumber, String password, String name, String type)    
+public  AdminClass(int id_of_employee, String phonenumber, String password, String name, String type)    
 {
         super(id_of_employee, phonenumber, password, name, type);
        
@@ -15,7 +15,7 @@ public  Admin(int id_of_employee, String phonenumber, String password, String na
 
 
 /*empty constractor*/
-    public Admin() {  
+    public AdminClass() {  
     }
 
     /* main function of admin*/

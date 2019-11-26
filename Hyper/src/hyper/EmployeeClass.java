@@ -16,8 +16,11 @@ public class EmployeeClass {
    private String password;
    private String name;
    private String type;
+   private int id_of_employee;
+
+   
 /* main constractor*/
-    public EmployeeClass(String phonenumber, String password, String name, String type) {
+    public EmployeeClass(int id_of_employee,String phonenumber, String password, String name, String type) {
        /*password*/
         if(password.length()<8)
         {
@@ -54,13 +57,14 @@ public class EmployeeClass {
        // this.phonenumber = phonenumber;
         //this.password = password;
         this.name = name;
+        this.id_of_employee=id_of_employee;
         
     }
 /*empty constructor*/
     public EmployeeClass() {
     }
     
-/*nubmer of employee*/
+/*phonenubmer of employee*/
     public String getNumber() {
         return phonenumber;
     }
@@ -118,6 +122,14 @@ public class EmployeeClass {
                break;
        }
 
+    }
+
+    public int getId_of_employee() {
+        return id_of_employee;
+    }
+
+    public void setId_of_employee(int id_of_employee) {
+        this.id_of_employee = id_of_employee;
     }
    
 
