@@ -36,19 +36,20 @@ public class EmployeeClass {
         {
             this.phonenumber = phonenumber;
         }
+
+         if(null != type)
         /*set type*/
-         if(type=="male")
-        {
-            this.type = type;
-        }
-        else if(type=="female")
-        {
-            this.type = type;
-        }
-        else
-        {
-            System.out.println("please enter the type 'male-female' ");
-        }
+       switch (type) {
+           case "male":
+               this.type = type;
+               break;
+           case "female":
+               this.type = type;
+               break;
+           default:
+               System.out.println("please enter the type 'male-female' ");
+               break;
+       }
         
        // this.phonenumber = phonenumber;
         //this.password = password;
@@ -105,18 +106,17 @@ public class EmployeeClass {
     }
 
     public void setType(String type) {
-        if(type=="male")
-        {
-            this.type = type;
-        }
-        else if(type=="female")
-        {
-            this.type = type;
-        }
-        else
-        {
-            System.out.println("please enter the type 'male-female' ");
-        }
+       switch (type) {
+           case "male":
+               this.type = type;
+               break;
+           case "female":
+               this.type = type;
+               break;
+           default:
+               System.out.println("please enter the your gender : 'male-female' ");
+               break;
+       }
 
     }
    
