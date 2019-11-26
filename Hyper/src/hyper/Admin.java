@@ -1,61 +1,74 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hyper;
 
-/**
- *
- * @author Ahmed Kamal
- */
-public class Admin extends EmployeeClass {
-    // QUESTION TO THE TEAM LEADER ???
-    //Why is the "EmloyeeID" in the child class not the parent !!!?
-    private int EmployeeID ;
 
-    //Empty constructor
-    public Admin() {
-    }
-
-    //Main Constructor
-    public Admin(int EmployeeID, String phonenumber, String password, String name, String type) {
-        super(phonenumber, password, name, type);
-        this.EmployeeID = EmployeeID;
-    }
-
-    //ID Constructor
-    public Admin(int EmployeeID) {
-        this.EmployeeID = EmployeeID;
-    }
-
+public class Admin extends EmployeeClass{
     
-    //setters and getters of the child class ( Admin )
-    public int getEmployeeID() {
-        return EmployeeID;
-    }
-
-    public void setEmployeeID(int EmployeeID) {
-        this.EmployeeID = EmployeeID;
-    }
- 
-   //Method that search for an employee
-    public void searchEmployee(int id)
-    {
-        //will be done after making the database or files
-    }
     
-       //Method that add an employee
-    public void addEmployee(int id)
-    {
-        //will be done after making the database or files
-    }
     
-       //Method that delete an employee
-    public void deleteEmployee(int id)
-    {
-        //will be done after making the database or files
-    }
+  /*main constractor*/  
+public  Admin(int id_of_employee, String phonenumber, String password, String name, String type)    
+{
+        super(id_of_employee, phonenumber, password, name, type);
+       
 }
 
 
+/*empty constractor*/
+    public Admin() {  
+    }
+
+    /* main function of admin*/
+
+
+
+
+
+//ADD employee
+    public void AddEmployee(int id_of_employee, String phonenumber, String password, String name, String type) {
+        //files work
+        super.setName(name);
+        super.setNumber(phonenumber);
+        super.setPassword(password);
+        super.setType(type);
+        super.setId_of_employee(id_of_employee);
+        Updatelist();
+    }
+    
+    
+    //Delete
+public  void DeleteEmployee(int id_of_employee)
+{
+    //files work
+    Updatelist();
+}
+
+
+
+//Update
+public static void Updatelist()
+{
+    //files work with gui
+    //will show hint "updatet after every fun"
+    System.out.println("updated");
+}
+
+
+
+
+//Searsh
+public static int SearchEmployee(int id_of_employee)
+{
+    /*if id in file */
+    return 1;
+    /*else 
+    return 0;*/
+}
+
+
+//list
+public static void ListofEmployee()
+{
+    //files
+}
+}
