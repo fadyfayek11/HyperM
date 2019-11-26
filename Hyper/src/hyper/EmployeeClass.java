@@ -42,24 +42,31 @@ public class EmployeeClass {
 
          if(null != type)
         /*set type*/
-       switch (type) {
-           case "male":
-               this.type = type;
-               break;
-           case "female":
-               this.type = type;
-               break;
-           default:
-               System.out.println("please enter the type 'male-female' ");
-               break;
+       if(type=="Marketing Employee")
+        {
+            this.type = type;
+        }
+        else if(type=="Inventory Employee")
+        {
+            this.type = type;
+        }
+        else if(type=="Seller Employee")
+        {
+            this.type = type;
+        }
+        else
+        {
+            System.out.println("please enter the type 'Marketing Employee-Inventory Employee-Seller Employee' ");
+        }
+         
+         this.name = name;
+        this.id_of_employee=id_of_employee;
        }
         
-       // this.phonenumber = phonenumber;
-        //this.password = password;
-        this.name = name;
-        this.id_of_employee=id_of_employee;
+    
         
-    }
+        
+   
 /*empty constructor*/
     public EmployeeClass() {
     }
@@ -110,19 +117,25 @@ public class EmployeeClass {
     }
 
     public void setType(String type) {
-       switch (type) {
-           case "male":
-               this.type = type;
-               break;
-           case "female":
-               this.type = type;
-               break;
-           default:
-               System.out.println("please enter the your gender : 'male-female' ");
-               break;
+        if(type=="Marketing Employee")
+        {
+            this.type = type;
+        }
+        else if(type=="Inventory Employee")
+        {
+            this.type = type;
+        }
+        else if(type=="Seller Employee")
+        {
+            this.type = type;
+        }
+        else
+        {
+            System.out.println("please enter the type 'Marketing Employee-Inventory Employee-Seller Employee' ");
+        }
        }
 
-    }
+    
 
     public int getId_of_employee() {
         return id_of_employee;
