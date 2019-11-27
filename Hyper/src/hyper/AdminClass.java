@@ -25,7 +25,7 @@ public class AdminClass extends EmployeeClass{
 
 //ADD employee
     public void AddEmployee() throws IOException {
-
+        String t=getType();
         File f = new File(getId_of_employee() + ".txt");
         if (!f.exists()) {
             FileWriter f1 = new FileWriter(f);
@@ -34,6 +34,22 @@ public class AdminClass extends EmployeeClass{
             f1.write(getId_of_employee() + ";");
             f1.write(getPassword() + ";");
             f1.write(getNumber() + ";");
+                  if(t.equals("Inventory Employee"))
+           {
+                getdata(); 
+           }
+           else if(getType().equals("Marketing Employee"))
+           {
+               getdata();
+           }
+           else if(getType().equals("Seller Employee"))
+           {
+               getdata();
+           }
+           else if(getType().equals("Admin"))
+           {
+              getdata();
+           }
             f1.close();
             Updatelist();
         } else {
@@ -42,6 +58,20 @@ public class AdminClass extends EmployeeClass{
 
     }
 
+        /*this function will sort every em by his type*/
+    public void getdata() throws IOException
+   {
+                  File f3=new File(getType()+".txt");
+                  FileWriter f2=new FileWriter(f3,true);
+                  f2.write(getName()+"\n");
+                  f2.write(getType()+"\n");
+                  //f2.write(getId_of_employee()+";");
+                  f2.write(getPassword()+"\n");
+                  f2.write(getNumber()+"\n");
+                  f2.write("#\n");
+                  f2.close();
+   }
+    
     //Delete
     public void DeleteEmployee(int id_of_employee) {
        File f=new File(id_of_employee+".txt");
@@ -70,8 +100,10 @@ public class AdminClass extends EmployeeClass{
     return 0;*/
     }
 
+
 //list
     public static void ListofEmployee() {
         //files
     }
+    
 }
