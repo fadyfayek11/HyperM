@@ -44,8 +44,15 @@ public class AdminClass extends EmployeeClass{
 
     //Delete
     public void DeleteEmployee(int id_of_employee) {
-        //files work
-        Updatelist();
+       File f=new File(id_of_employee+".txt");
+       if(f.delete())
+       {
+           System.out.println("delete employee complite");
+       }
+       else
+       {
+           System.out.println("please try again-ENTER CORRECT ID");
+       }
     }
 
 //Update
