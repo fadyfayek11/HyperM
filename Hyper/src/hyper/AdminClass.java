@@ -63,12 +63,11 @@ public class AdminClass extends EmployeeClass{
    {
                   File f3=new File(getType()+".txt");
                   FileWriter f2=new FileWriter(f3,true);
-                  f2.write(getName()+"\n");
-                  f2.write(getType()+"\n");
-                  //f2.write(getId_of_employee()+";");
-                  f2.write(getPassword()+"\n");
-                  f2.write(getNumber()+"\n");
-                  f2.write("#\n");
+                  f2.write(getName()+"@");
+                  f2.write(getType()+"@");
+                  f2.write(getPassword()+"@");
+                  f2.write(getNumber()+"@");
+                  f2.write("@\n");
                   f2.close();
    }
     
@@ -92,18 +91,44 @@ public class AdminClass extends EmployeeClass{
         System.out.println("updated");
     }
 
-//Searsh
-    public static int SearchEmployee(int id_of_employee) {
-        /*if id in file */
-        return 1;
-        /*else 
-    return 0;*/
+   //Searsh
+    public void SearchEmployee(String name,String Type) throws FileNotFoundException, IOException {
+        File f=new File(Type+".txt");
+        FileReader f2=new FileReader(f);
+        BufferedReader f3=new BufferedReader(f2);
+        String line;
+        while((line=f3.readLine())!=null)
+        {
+            if(line.contains(name))
+            {
+                String[] l=line.split("@");
+                for(String data:l)
+                System.out.println(data);
+            }
+            else
+            {
+                System.out.println("not found");
+            }
+        }
     }
 
 
 //list
-    public static void ListofEmployee() {
-        //files
+     public void ListofEmployee(String Type) throws FileNotFoundException, IOException {
+        File f=new File(Type+".txt");
+        FileReader f1=new FileReader(f);
+        BufferedReader f3=new BufferedReader(f1);
+       String line;
+       while((line=f3.readLine())!=null)
+       {
+           String[] l=line.split("@");
+           for(String lists:l)
+           {
+            System.out.println(lists);   
+           }
+           
+       }
+        
     }
     
 }
