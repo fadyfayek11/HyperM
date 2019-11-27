@@ -5,6 +5,8 @@
  */
 package hyper;
 
+import java.io.IOException;
+
 /**
  *
  * @author Fady Fayek
@@ -14,8 +16,8 @@ public class Hyper {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-     
+    public static void main(String[] args) throws IOException {
+      
     }
     
    

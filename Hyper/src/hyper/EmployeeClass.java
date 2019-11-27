@@ -54,9 +54,14 @@ public class EmployeeClass {
         {
             this.type = type;
         }
+         else if(type=="Admin")
+        {
+            this.type = type;
+        }
+        
         else
         {
-            System.out.println("please enter the type 'Marketing Employee-Inventory Employee-Seller Employee' ");
+            System.out.println("please enter the type 'Admin-Marketing Employee-Inventory Employee-Seller Employee' ");
         }
          
          this.name = name;
@@ -129,9 +134,13 @@ public class EmployeeClass {
         {
             this.type = type;
         }
+        else if(type=="Admin")
+        {
+            this.type = type;
+        }
         else
         {
-            System.out.println("please enter the type 'Marketing Employee-Inventory Employee-Seller Employee' ");
+            System.out.println("please enter the type 'Admin-Marketing Employee-Inventory Employee-Seller Employee' ");
         }
        }
 
