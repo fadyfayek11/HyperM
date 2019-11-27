@@ -40,7 +40,7 @@ public class EmployeeClass {
             this.phonenumber = phonenumber;
         }
 
-         if(null != type)
+         
         /*set type*/
        if(type=="Marketing Employee")
         {

@@ -6,16 +6,15 @@ public class AdminClass extends EmployeeClass{
     
     
     
-  /*main constractor*/  
-public  AdminClass(int id_of_employee, String phonenumber, String password, String name, String type)    
-{
+    /*main constractor*/
+    public AdminClass(int id_of_employee, String phonenumber, String password, String name, String type) {
         super(id_of_employee, phonenumber, password, name, type);
-       
-}
+
+    }
 
 
-/*empty constractor*/
-    public AdminClass() {  
+    /*empty constractor*/
+    public AdminClass() {
     }
 
     /* main function of admin*/
@@ -42,15 +41,12 @@ public  AdminClass(int id_of_employee, String phonenumber, String password, Stri
         }
 
     }
-    
-    
+
     //Delete
     public void DeleteEmployee(int id_of_employee) {
         //files work
         Updatelist();
     }
-
-
 
 //Update
     public static void Updatelist() {
@@ -59,9 +55,6 @@ public  AdminClass(int id_of_employee, String phonenumber, String password, Stri
         System.out.println("updated");
     }
 
-
-
-
 //Searsh
     public static int SearchEmployee(int id_of_employee) {
         /*if id in file */
@@ -69,7 +62,6 @@ public  AdminClass(int id_of_employee, String phonenumber, String password, Stri
         /*else 
     return 0;*/
     }
-
 
 //list
     public static void ListofEmployee() {
