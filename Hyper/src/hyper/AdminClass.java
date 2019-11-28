@@ -1,6 +1,7 @@
 
 package hyper;
 import java.io.*;
+import java.util.ArrayList;
 
 public class AdminClass extends EmployeeClass{
     
@@ -72,16 +73,50 @@ public class AdminClass extends EmployeeClass{
    }
     
     //Delete
-    public void DeleteEmployee(int id_of_employee) {
-       File f=new File(id_of_employee+".txt");
-       if(f.delete())
-       {
-           System.out.println("delete employee complite");
-       }
-       else
-       {
-           System.out.println("please try again-ENTER CORRECT ID");
-       }
+    public void DeleteEmployee(String Id_of_employee, String Type) throws FileNotFoundException, IOException {
+        /*delte file of employee*/
+        File f11 = new File(Id_of_employee + ".txt");
+        if (f11.delete()) {
+            System.out.println("delete employee complite");
+        } else {
+            System.out.println("please try again");
+        }
+        /*delet line data in section file of employee*/
+ /*array list play role like temp in swap function in c*/
+        ArrayList<String> ss = new ArrayList<>();
+
+        File f = new File(Type + ".txt");  //open file to read  
+        FileReader f1 = new FileReader(f);
+        BufferedReader f2 = new BufferedReader(f1);
+        String line;
+        while ((line = f2.readLine()) != null) {
+            //String[] l=line.split("@");
+            // for(String data:l)
+            ss.add(line);//read file and pass to array
+        }
+
+        for (int i = 0; i < ss.size(); i++)//search for id
+        {
+            if (ss.get(i).contains(Id_of_employee)) {
+                ss.remove(ss.get(i));
+            }
+
+        }
+        // System.out.println(ss);
+        PrintWriter writer = new PrintWriter(f);//to clear file
+        writer.print("");
+        for (int i = 0; i < ss.size(); i++) {
+            FileWriter f5 = new FileWriter(f, true);//to write again
+
+            f5.write(ss.get(i) + "\n");
+            f5.close();
+            // System.out.println(ss.get(i));
+        }
+
+        f2.close();//close f2
+        f1.close();//close f1
+        writer.close();//close printwriter
+
     }
 
 //Update
@@ -107,7 +142,7 @@ public class AdminClass extends EmployeeClass{
             }
             else
             {
-                System.out.println("not found");
+                //System.out.println("not found");
             }
         }
     }
