@@ -38,7 +38,7 @@ public class AdminClass extends EmployeeClass{
                 getdata();
             }
             f1.close();
-            Updatelist();
+            
         } else {
             System.out.println("is already created");
         }
@@ -105,12 +105,92 @@ public class AdminClass extends EmployeeClass{
     }
 
 //Update
-    public static void Updatelist() {
-        //files work with gui
-        //will show hint "updatet after every fun"
-        System.out.println("updated");
+        public  void UpdateInfo(String oldid,String newid,String oldType,String newType,String newname,String newphone,String newpassword) throws IOException {
+       File f=new File(oldid+".txt");
+       File f2=new File(newid+".txt");
+       boolean c=f.renameTo(f2);
+       int id = Integer.parseInt(newid);
+       setName(newname);
+       setId_of_employee(id);
+       setType(newType);
+       setNumber(newphone);
+       setPassword(newpassword);
+       String t=newType;
+       if(f2.exists())
+       {
+           FileWriter f1=new FileWriter(f2);
+            f1.write(getName() + "@");
+            f1.write(getType() + "@");
+            f1.write(getId_of_employee()+ "@");
+            f1.write(getPassword() + "@");
+            f1.write(getNumber() + "@");
+           
+          
+           f1.close();
+           cupdate(oldid, newid, oldType, newType);
+           
+       }
+  
+       else 
+       {
+            System.out.println("is not found");
+       }
+      
+     
     }
 
+     public void cupdate(String oldid,String newid,String oldType,String newType) throws IOException
+   {
+                  ArrayList<String> ss = new ArrayList<>();
+                  ArrayList<String> nss = new ArrayList<>();
+                  File f=new File(oldType+".txt");
+                  FileReader f2=new FileReader(f);
+                  BufferedReader f3=new BufferedReader(f2);
+                  String line;
+                  while((line=f3.readLine())!=null)
+                  {
+                      ss.add(line);
+                  }
+                  for (int i = 0; i < ss.size(); i++)
+                    {
+                        if (ss.get(i).contains("@"+oldid+"@")) {
+                              ss.remove(ss.get(i));
+                        }
+
+                    }
+                 
+                    PrintWriter writer = new PrintWriter(f);
+                    writer.print("");
+                    for (int i = 0; i < ss.size(); i++) {
+                        FileWriter f5 = new FileWriter(f, true);
+
+                        f5.write(ss.get(i) + "\n");
+                        f5.close();
+                        
+                    }
+                    
+                    f2.close();
+                    f3.close();
+                    writer.close();
+                    File nfile=new File(newid+".txt");
+                    FileReader nfile2=new FileReader(nfile);
+                    BufferedReader filereader=new BufferedReader(nfile2);
+                    String nline;
+                    while((nline=filereader.readLine())!=null)
+                    {
+                        nss.add(nline);
+                       
+                    }
+                    
+                    File ff=new File(newType+".txt");                    
+                    FileWriter f5 = new FileWriter(ff, true);
+                    f5.write(nss.get(0)+ "\n");
+                    f5.close();
+                        
+                    
+                  nfile2.close();
+                  filereader.close();
+   }
     //Searsh
     public void SearchEmployee(String name, String Type) throws FileNotFoundException, IOException {
         File f = new File(Type + ".txt");
