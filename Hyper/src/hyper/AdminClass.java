@@ -30,11 +30,11 @@ public class AdminClass extends EmployeeClass{
             f1.write(getNumber() + ";");
             if (t.equals("Inventory Employee")) {
                 getdata();
-            } else if (getType().equals("Marketing Employee")) {
+            } else if (t.equals("Marketing Employee")) {
                 getdata();
-            } else if (getType().equals("Seller Employee")) {
+            } else if (t.equals("Seller Employee")) {
                 getdata();
-            } else if (getType().equals("Admin")) {
+            } else if (t.equals("Admin")) {
                 getdata();
             }
             f1.close();
