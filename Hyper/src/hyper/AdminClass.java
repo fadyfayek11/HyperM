@@ -48,16 +48,18 @@ public class AdminClass extends EmployeeClass{
     }
 
     /*this function will sort every em by his type*/
-    public void getdata() throws IOException {
-        File f3 = new File(getType() + ".txt");
-        FileWriter f2 = new FileWriter(f3, true);
-        f2.write(getName() + "@");
-        f2.write(getType() + "@");
-        f2.write(getPassword() + "@");
-        f2.write(getNumber() + "@");
-        f2.write("@\n");
-        f2.close();
-    }
+    public void getdata() throws IOException
+   {
+                  File f3=new File(getType()+".txt");
+                  FileWriter f2=new FileWriter(f3,true);
+                  f2.write(getName()+"@");
+                  f2.write(getType()+"@");
+                  f2.write(getId_of_employee()+"@");
+                  f2.write(getPassword()+"@");
+                  f2.write(getNumber()+"@");
+                  f2.write("\n");
+                  f2.close();
+   }
 
     //Delete
     public void DeleteEmployee(String Id_of_employee, String Type) throws FileNotFoundException, IOException {
