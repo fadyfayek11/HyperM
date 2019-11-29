@@ -4,9 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class AdminClass extends EmployeeClass{
-    
-    
-    
+
     /*main constractor*/
     public AdminClass(int id_of_employee, String phonenumber, String password, String name, String type) {
         super(id_of_employee, phonenumber, password, name, type);
@@ -19,14 +17,9 @@ public class AdminClass extends EmployeeClass{
     }
 
     /* main function of admin*/
-
-
-
-
-
 //ADD employee
     public void AddEmployee() throws IOException {
-        String t=getType();
+        String t = getType();
         File f = new File(getId_of_employee() + ".txt");
         if (!f.exists()) {
             FileWriter f1 = new FileWriter(f);
@@ -35,22 +28,15 @@ public class AdminClass extends EmployeeClass{
             f1.write(getId_of_employee() + ";");
             f1.write(getPassword() + ";");
             f1.write(getNumber() + ";");
-                  if(t.equals("Inventory Employee"))
-           {
-                getdata(); 
-           }
-           else if(getType().equals("Marketing Employee"))
-           {
-               getdata();
-           }
-           else if(getType().equals("Seller Employee"))
-           {
-               getdata();
-           }
-           else if(getType().equals("Admin"))
-           {
-              getdata();
-           }
+            if (t.equals("Inventory Employee")) {
+                getdata();
+            } else if (getType().equals("Marketing Employee")) {
+                getdata();
+            } else if (getType().equals("Seller Employee")) {
+                getdata();
+            } else if (getType().equals("Admin")) {
+                getdata();
+            }
             f1.close();
             Updatelist();
         } else {
@@ -59,19 +45,18 @@ public class AdminClass extends EmployeeClass{
 
     }
 
-        /*this function will sort every em by his type*/
-    public void getdata() throws IOException
-   {
-                  File f3=new File(getType()+".txt");
-                  FileWriter f2=new FileWriter(f3,true);
-                  f2.write(getName()+"@");
-                  f2.write(getType()+"@");
-                  f2.write(getPassword()+"@");
-                  f2.write(getNumber()+"@");
-                  f2.write("@\n");
-                  f2.close();
-   }
-    
+    /*this function will sort every em by his type*/
+    public void getdata() throws IOException {
+        File f3 = new File(getType() + ".txt");
+        FileWriter f2 = new FileWriter(f3, true);
+        f2.write(getName() + "@");
+        f2.write(getType() + "@");
+        f2.write(getPassword() + "@");
+        f2.write(getNumber() + "@");
+        f2.write("@\n");
+        f2.close();
+    }
+
     //Delete
     public void DeleteEmployee(String Id_of_employee, String Type) throws FileNotFoundException, IOException {
         /*delte file of employee*/
@@ -126,44 +111,38 @@ public class AdminClass extends EmployeeClass{
         System.out.println("updated");
     }
 
-   //Searsh
-    public void SearchEmployee(String name,String Type) throws FileNotFoundException, IOException {
-        File f=new File(Type+".txt");
-        FileReader f2=new FileReader(f);
-        BufferedReader f3=new BufferedReader(f2);
+    //Searsh
+    public void SearchEmployee(String name, String Type) throws FileNotFoundException, IOException {
+        File f = new File(Type + ".txt");
+        FileReader f2 = new FileReader(f);
+        BufferedReader f3 = new BufferedReader(f2);
         String line;
-        while((line=f3.readLine())!=null)
-        {
-            if(line.contains(name))
-            {
-                String[] l=line.split("@");
-                for(String data:l)
-                System.out.println(data);
-            }
-            else
-            {
+        while ((line = f3.readLine()) != null) {
+            if (line.contains(name)) {
+                String[] l = line.split("@");
+                for (String data : l) {
+                    System.out.println(data);
+                }
+            } else {
                 //System.out.println("not found");
             }
         }
     }
 
-
 //list
-     public void ListofEmployee(String Type) throws FileNotFoundException, IOException {
-        File f=new File(Type+".txt");
-        FileReader f1=new FileReader(f);
-        BufferedReader f3=new BufferedReader(f1);
-       String line;
-       while((line=f3.readLine())!=null)
-       {
-           String[] l=line.split("@");
-           for(String lists:l)
-           {
-            System.out.println(lists);   
-           }
-           
-       }
-        
+    public void ListofEmployee(String Type) throws FileNotFoundException, IOException {
+        File f = new File(Type + ".txt");
+        FileReader f1 = new FileReader(f);
+        BufferedReader f3 = new BufferedReader(f1);
+        String line;
+        while ((line = f3.readLine()) != null) {
+            String[] l = line.split("@");
+            for (String lists : l) {
+                System.out.println(lists);
+            }
+
+        }
+
     }
-    
+
 }
