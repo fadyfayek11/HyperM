@@ -6,13 +6,14 @@
 package hyper;
 
 import java.io.*;
-import java.util.Date;
+import java.util.Date;  
 
 
 /**
  *
  * @author mohra
  */
+
 
 public class Inventory extends Products{
 
@@ -21,13 +22,14 @@ public class Inventory extends Products{
     public Inventory(){
     }
 
+    /*main constractor*/
     public Inventory(Date productDate, String productName, int productID, int productAmount, double initialPrice, int discount) {
         super(productDate, productName, productID, productAmount, initialPrice, discount);
     }
     
        //SearchProduct
    public void SearchProduct(String productName ) throws IOException {
-       File f =new File("ProdectFile.txt");
+       File f =new File("ProductFile.txt");
         FileReader f2=new FileReader(f);
         BufferedReader f3=new BufferedReader(f2);
         String line;
@@ -53,7 +55,7 @@ public class Inventory extends Products{
     
          //add product
     public void AddProducts(/*int date,*/ String name ,int productid , int amount , double productprice) throws IOException,FileNotFoundException {
-            File f =new File("ProdectFile.txt");
+            File f =new File("ProductFile.txt");
             FileWriter f1 = new FileWriter(f,true);
             FileReader f2=new FileReader(f);
             BufferedReader f3=new BufferedReader(f2);
@@ -72,7 +74,7 @@ public class Inventory extends Products{
                 if(!found){
                     f1.write(productid+"@");
                     f1.write(name+"@");
-                   //f1.write(date+"@");
+                    //f1.write(date+"@");
                     f1.write(productprice+"@");
                     f1.write(amount+"@\n");
                     f1.close();
@@ -80,7 +82,6 @@ public class Inventory extends Products{
                 f3.close();
                 f1.close();
                 f2.close();
-                
             }
     }
             
@@ -88,8 +89,8 @@ public class Inventory extends Products{
     
     
          //remove product
-    public void DeleteProduct(String productName , int productID) throws IOException{
-            File f =new File("ProdectFile.txt");
+    public void DeleteProduct(String productName) throws IOException{
+            File f =new File("ProductFile.txt");
             File TempFile= new File("TempFile.txt");
             BufferedReader reader=new BufferedReader(new FileReader(f));
             PrintWriter  writer =new PrintWriter(new FileWriter(TempFile));
@@ -113,6 +114,63 @@ public class Inventory extends Products{
             else
                 System.out.println("ENTER CORRECT PRODUCT-ID AND PRODUCT-NAME ");
     }
+    
+    //List Products
+    public void ListProduct() throws FileNotFoundException, IOException{
+            File f = new File("ProductFile.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            
+            String line;
+            
+            while( (line=reader.readLine())!=null ){
+                String[] l=line.split("@");
+                for(String lists:l)
+                {
+                 System.out.println(lists);   
+                }
+            }
+            reader.close();
+        }
+    
+          //update product
+    public void UpdateProduct(String productName,int productID ,int productPrice, int productAmount , int discount) throws IOException{
+            File f =new File("ProductFile.txt");
+            File TempFile= new File("TempFile.txt");
+            BufferedReader reader=new BufferedReader(new FileReader(f));
+            PrintWriter  writer =new PrintWriter(new FileWriter(TempFile));
+            BufferedReader reader1=new BufferedReader(new FileReader(TempFile));
+            
+            if(TempFile.exists()){
+            writer.write(productID+"@");
+            writer.write(productName+"@");
+            writer.write(productAmount+"@");
+            writer.write(productPrice+"@");
+            }
+            
+            String line;
+            String line2=reader1.readLine();
+            
+            while((line=reader.readLine())!=null){
+                    if(line.contains(productName)){
+                        writer.println(line2);
+                        continue; 
+                    }
+                    writer.println(line);
+            }
+            
+            reader.close();
+            reader1.close();
+            writer.close();
+            
+            f.delete();
+            boolean UpdateSuccessful = TempFile.renameTo(f);
+            if(UpdateSuccessful)
+                System.out.println("THE PRODUCT IS UPDATE ");
+            else
+                System.out.println("PLEASE TRY AGAIN");
+    
+    }
+       
               
           //get message when expiry date of product get close
     public void ExpirationWarning(int productDate , String productName){
