@@ -1,6 +1,13 @@
 
 package hyper;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class AdminClass extends EmployeeClass{
@@ -18,37 +25,55 @@ public class AdminClass extends EmployeeClass{
 
     /* main function of admin*/
 //ADD employee
-    public void AddEmployee() throws IOException {
-         
-        String t = getType();
-        File f = new File(getId_of_employee() + ".txt");
-        if (!f.exists()) {
-            FileWriter f1 = new FileWriter(f);
-            f1.write(getName() + "@");
-            f1.write(getType() + "@");
-            f1.write(getId_of_employee() + "@");
-            f1.write(getPassword() + "@");
-            f1.write(getNumber() + "@");
-
-            if (t.equals("Inventory Employee")) {
-                getdata();
-            } else if (t.equals("Marketing Employee")) {
-                getdata();
-            } else if (t.equals("Seller Employee")) {
-                getdata();
-            } else if (t.equals("Admin")) {
-                getdata();
-            }
-            f1.close();
-
-        } else {
+     public void AddEmployee() throws IOException
+   {
+      
+      
+       String t=getType();
+       File f=new File(getId_of_employee()+".txt");
+       if(!f.exists())
+       {
+           FileWriter f1=new FileWriter(f);
+           f1.write(getName()+"@");
+           f1.write(getType()+"@");
+           f1.write(getId_of_employee()+"@");
+           f1.write(getPassword()+"@");
+           f1.write(getNumber()+"@");
+           
+             if(t.equals("Inventory Employee"))
+           {
+                getdata(); 
+           }
+           else if(t.equals("Marketing Employee"))
+           {
+               getdata();
+           }
+           else if(t.equals("Seller Employee"))
+           {
+               getdata();
+           }
+           else if(t.equals("Admin"))
+           {
+              getdata();
+           }
+           f1.close();
+           
+       }
+  
+       else 
+       {
             System.out.println("is already created");
-        }
-
-    }
+       }
+      
+     
+     
+       
+       
+       
+   }
 
     /*this function will sort every em by his type*/
-    public void getdata() throws IOException
+     public void getdata() throws IOException
    {
                   File f3=new File(getType()+".txt");
                   FileWriter f2=new FileWriter(f3,true);
@@ -62,7 +87,7 @@ public class AdminClass extends EmployeeClass{
    }
 
     //Delete
-    public void DeleteEmployee(String Id_of_employee, String Type) throws FileNotFoundException, IOException {
+   public void Delete(String Id_of_employee, String Type) throws FileNotFoundException, IOException {
         /*delte file of employee*/
         File f11 = new File(Id_of_employee + ".txt");
         if (f11.delete()) {
@@ -104,7 +129,6 @@ public class AdminClass extends EmployeeClass{
         f2.close();//close f2
         f1.close();//close f1
         writer.close();//close printwriter
-
 
     }
 
