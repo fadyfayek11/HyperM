@@ -19,15 +19,17 @@ public class AdminClass extends EmployeeClass{
     /* main function of admin*/
 //ADD employee
     public void AddEmployee() throws IOException {
+         
         String t = getType();
         File f = new File(getId_of_employee() + ".txt");
         if (!f.exists()) {
             FileWriter f1 = new FileWriter(f);
-            f1.write(getName() + ";");
-            f1.write(getType() + ";");
-            f1.write(getId_of_employee() + ";");
-            f1.write(getPassword() + ";");
-            f1.write(getNumber() + ";");
+            f1.write(getName() + "@");
+            f1.write(getType() + "@");
+            f1.write(getId_of_employee() + "@");
+            f1.write(getPassword() + "@");
+            f1.write(getNumber() + "@");
+
             if (t.equals("Inventory Employee")) {
                 getdata();
             } else if (t.equals("Marketing Employee")) {
@@ -38,7 +40,7 @@ public class AdminClass extends EmployeeClass{
                 getdata();
             }
             f1.close();
-            
+
         } else {
             System.out.println("is already created");
         }
