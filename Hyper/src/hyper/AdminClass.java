@@ -73,14 +73,12 @@ public class AdminClass extends EmployeeClass{
         /*delet line data in section file of employee*/
  /*array list play role like temp in swap function in c*/
         ArrayList<String> ss = new ArrayList<>();
-
         File f = new File(Type + ".txt");  //open file to read  
         FileReader f1 = new FileReader(f);
         BufferedReader f2 = new BufferedReader(f1);
         String line;
         while ((line = f2.readLine()) != null) {
-            //String[] l=line.split("@");
-            // for(String data:l)
+           
             ss.add(line);//read file and pass to array
         }
 
@@ -91,7 +89,8 @@ public class AdminClass extends EmployeeClass{
             }
 
         }
-        // System.out.println(ss);
+       
+       
         PrintWriter writer = new PrintWriter(f);//to clear file
         writer.print("");
         for (int i = 0; i < ss.size(); i++) {
@@ -99,12 +98,13 @@ public class AdminClass extends EmployeeClass{
 
             f5.write(ss.get(i) + "\n");
             f5.close();
-            // System.out.println(ss.get(i));
+           
         }
 
         f2.close();//close f2
         f1.close();//close f1
         writer.close();//close printwriter
+
 
     }
 
