@@ -21,56 +21,14 @@ public class EmployeeClass {
    
 /* main constractor*/
     public EmployeeClass(int id_of_employee,String phonenumber, String password, String name, String type) {
-       /*password*/
-        if(password.length()<8)
-        {
-            System.out.println("the password should be more than 8 char");
-        }
-        else
-        {
-            this.password = password;
-        }
-        /*phone number*/
-        if(phonenumber.length()<11)
-        {
-            System.out.println("incorrect phone number");
-        }
-        else
-        {
-            this.phonenumber = phonenumber;
-        }
-
-         
-        /*set type*/
-       if(type=="Marketing Employee")
-        {
-            this.type = type;
-        }
-        else if(type=="Inventory Employee")
-        {
-            this.type = type;
-        }
-        else if(type=="Seller Employee")
-        {
-            this.type = type;
-        }
-         else if(type=="Admin")
-        {
-            this.type = type;
-        }
-        
-        else
-        {
-            System.out.println("please enter the type 'Admin-Marketing Employee-Inventory Employee-Seller Employee' ");
-        }
-         
-         this.name = name;
-        this.id_of_employee=id_of_employee;
+      
+       setName(name);
+       setId_of_employee(id_of_employee);
+       setType(type);
+       setNumber(phonenumber);
+       setPassword(password);
        }
-        
-    
-        
-        
+
    
 /*empty constructor*/
     public EmployeeClass() {
@@ -82,13 +40,14 @@ public class EmployeeClass {
     }
 /*phone number*/
     public void setNumber(String phonenumber) {
-        if(phonenumber.length()<11)
+       if(phonenumber.length()<=11&&phonenumber.length()>10)
         {
-            System.out.println("incorrect phone number");
+            
+            this.phonenumber = phonenumber;
         }
         else
         {
-            this.phonenumber = phonenumber;
+           System.out.println("incorrect phone number-should be 11 number");
         }
       
         
@@ -151,7 +110,13 @@ public class EmployeeClass {
     }
 
     public void setId_of_employee(int id_of_employee) {
-        this.id_of_employee = id_of_employee;
+        try{
+            this.id_of_employee = id_of_employee;
+        }catch(RuntimeException e)
+        {
+            System.out.println("please enter numbers only");
+        }
+        
     }
    
 
