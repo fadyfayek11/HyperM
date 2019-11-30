@@ -14,6 +14,8 @@ import java.util.Date;
  * @author mohra
  */
 
+/****make id unique*****/
+/****Damage fun*********/
 
 public class Inventory extends Products{
 
@@ -54,7 +56,7 @@ public class Inventory extends Products{
   
     
          //add product
-    public void AddProducts(/*int date,*/ String name ,int productid , int amount , double productprice) throws IOException,FileNotFoundException {
+    public void AddProducts(/*int date,*/ String name ,int productID , int amount , double productPrice , int discount) throws IOException,FileNotFoundException {
             File f =new File("ProductFile.txt");
             FileWriter f1 = new FileWriter(f,true);
             FileReader f2=new FileReader(f);
@@ -72,16 +74,18 @@ public class Inventory extends Products{
                     }
                 }
                 if(!found){
-                    f1.write(productid+"@");
+                    f1.write(productID+"@");
                     f1.write(name+"@");
-                    //f1.write(date+"@");
-                    f1.write(productprice+"@");
-                    f1.write(amount+"@\n");
+                   //f1.write(date+"@");
+                    f1.write(productPrice+"@");
+                    f1.write(amount+"@");
+                    f1.write(discount+"@\n");
                     f1.close();
                 }
                 f3.close();
                 f1.close();
                 f2.close();
+
             }
     }
             
@@ -133,42 +137,41 @@ public class Inventory extends Products{
         }
     
           //update product
-    public void UpdateProduct(String productName,int productID ,int productPrice, int productAmount , int discount) throws IOException{
+    public void UpdateProduct(String productName,int productID , double productPrice, double productAmount , int discount) throws IOException , FileNotFoundException{
             File f =new File("ProductFile.txt");
             File TempFile= new File("TempFile.txt");
             BufferedReader reader=new BufferedReader(new FileReader(f));
             PrintWriter  writer =new PrintWriter(new FileWriter(TempFile));
             BufferedReader reader1=new BufferedReader(new FileReader(TempFile));
-            
-            if(TempFile.exists()){
+
+            if(TempFile.exists()){ //write update in the tempfile
             writer.write(productID+"@");
             writer.write(productName+"@");
             writer.write(productAmount+"@");
             writer.write(productPrice+"@");
+            writer.write(discount+"@\n");
             }
-            
+
             String line;
-            String line2=reader1.readLine();
-            
-            while((line=reader.readLine())!=null){
-                    if(line.contains(productName)){
-                        writer.println(line2);
+            String line2=reader1.readLine(); //read from tempfile
+
+            while((line=reader.readLine())!=null){ //read from product file
+                    if(line.contains(productName)){ 
                         continue; 
                     }
                     writer.println(line);
             }
-            
+
             reader.close();
             reader1.close();
             writer.close();
-            
+
             f.delete();
             boolean UpdateSuccessful = TempFile.renameTo(f);
             if(UpdateSuccessful)
                 System.out.println("THE PRODUCT IS UPDATE ");
             else
                 System.out.println("PLEASE TRY AGAIN");
-    
     }
        
               
