@@ -133,7 +133,7 @@ public class AdminClass extends EmployeeClass{
     }
 
 //Update
-        public  void UpdateInfo(String oldid,String newid,String oldType,String newType,String newname,String newphone,String newpassword) throws IOException {
+    public  void UpdateInfo(String oldid,String newid,String oldType,String newType,String newname,String newphone,String newpassword) throws IOException {
        File f=new File(oldid+".txt");
        File f2=new File(newid+".txt");
        boolean c=f.renameTo(f2);
@@ -167,7 +167,7 @@ public class AdminClass extends EmployeeClass{
      
     }
 
-     public void cupdate(String oldid,String newid,String oldType,String newType) throws IOException
+     public int cupdate(String oldid,String newid,String oldType,String newType) throws IOException
    {
                   ArrayList<String> ss = new ArrayList<>();
                   ArrayList<String> nss = new ArrayList<>();
@@ -181,8 +181,13 @@ public class AdminClass extends EmployeeClass{
                   }
                   for (int i = 0; i < ss.size(); i++)
                     {
-                        if (ss.get(i).contains("@"+oldid+"@")) {
+                         if (ss.get(i).contains("@"+oldid+"@")) {
                               ss.remove(ss.get(i));
+                        }
+                        else if(ss.get(i).contains("@"+newid+"@"))
+                        {
+                            System.out.println("Sorry not sorry");
+                            return 0;
                         }
 
                     }
@@ -218,6 +223,7 @@ public class AdminClass extends EmployeeClass{
                     
                   nfile2.close();
                   filereader.close();
+                  return 1;
    }
     //Searsh
     public void SearchEmployee(String name, String Type) throws FileNotFoundException, IOException {
