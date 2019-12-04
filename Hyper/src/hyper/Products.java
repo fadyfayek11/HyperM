@@ -20,14 +20,16 @@ public class Products {
    private int productAmount ;
    private double initialPrice;
    private int discount ;
-   private final double productFinalPrice=(initialPrice*(100-discount)/100);
+   private final double productFinalPrice;
 
    //EMPTY CONSTRUCTOR 
     public Products() {
+        this.productFinalPrice = (initialPrice*(100-discount)/100);
     }
 
     //The Main constructor
     public Products(Date productDate, String productName, int productID, int productAmount, double initialPrice, int discount) {   
+        this.productFinalPrice = (initialPrice*(100-discount)/100);
         this.productDate = productDate;
         this.productName = productName;
         this.productID = productID;
@@ -84,7 +86,12 @@ public class Products {
     public void setProductDate(Date productDate) {
         this.productDate = productDate;
     }
+
+    public double getProductFinalPrice() {
+        return productFinalPrice;
+    }
    
+    
     
    
 }
