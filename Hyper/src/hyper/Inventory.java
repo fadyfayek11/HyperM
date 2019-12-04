@@ -5,6 +5,7 @@
  */
 package hyper;
 
+import GUI.InventoryFrame;
 import java.io.*;
 import java.util.Date;  
 
@@ -20,6 +21,7 @@ public class Inventory extends Products{
     
     //defult constractor
     public Inventory(){
+        //InventoryFrame Invframe = new InventoryFrame();
     }
 
     /*main constractor*/
@@ -203,6 +205,7 @@ public class Inventory extends Products{
                 }
         }
         reader.close();
+        f1.close();
         if(found)
             return false;
         else
