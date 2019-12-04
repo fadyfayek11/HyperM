@@ -7,8 +7,7 @@ package hyper;
 
 import java.io.*;
 import java.util.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -17,10 +16,9 @@ import javax.swing.JPanel;
 public class SalesGUI {
 
     /**
-     * @param args the command line arguments
-     * @throws java.io.IOException */
+     * @param args the command line arguments */
      
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
        
          JFrame sales_frame = new JFrame("Sales Gui");
        
@@ -29,6 +27,8 @@ public class SalesGUI {
        
         JPanel sales_panel = new JPanel();    
         sales_frame.add(sales_panel);
+        
+        JLabel Sales = new JLabel("SALES");
     }
     
 }
