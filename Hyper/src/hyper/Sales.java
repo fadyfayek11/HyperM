@@ -11,8 +11,8 @@ import java.util.Scanner;
  * @author marti
  */
 public class Sales extends Inventory{
-    private double sum=0;
-    
+    private double SumBeforeDiscount=0;
+     private double SumAfterDiscount=0;
     //empty constructor
     public Sales(){}
     
@@ -29,7 +29,8 @@ public class Sales extends Inventory{
              
          while (reader.hasNext()){
             String Line=reader.nextLine();
-            System.out.println(Line); 
+            String[] seperate=Line.split("@");
+             System.out.println(seperate[0]+seperate[1]+seperate[2]+seperate[3]);
     }
     reader.close();
     }        
@@ -48,6 +49,7 @@ public class Sales extends Inventory{
                     if(i==1)
                         System.out.println("ID :" + seperate[0]+"Product Name :"+seperate[1]+"Product Price:"+seperate[2]+"Product Amount"+seperate[3]);}
             }
+            reader.close();
         }
     }
     
@@ -60,17 +62,24 @@ public class Sales extends Inventory{
                     String Line=reader.nextLine();
                     String[] seperate=Line.split("@");
                     if(seperate[1].equals(ProductName)){
-                        System.out.println("price : "+Integer.parseInt(seperate[2])*quantity);
-                        sum+= Integer.parseInt(seperate[2])*quantity;
+                         System.out.println("price before discount : "+Integer.parseInt(seperate[2])*quantity);
+                        System.out.println("price after discount : "+super.getProductFinalPrice()*quantity);
+                        SumBeforeDiscount+= Integer.parseInt(seperate[2])*quantity;
+                        SumAfterDiscount+=super.getProductFinalPrice()*quantity;
                         super.soldItems(quantity, ProductName);
+                        
                     }
                     ProductName=input.next();
                     quantity=input.nextInt();
                     
                 }
-                System.out.println("total should be payed = "+sum);
-                sum=0;
-            }}
+                System.out.println("total before discount = "+SumBeforeDiscount);
+                System.out.println("total shoud be payed = "+SumAfterDiscount);
+                SumBeforeDiscount=0;
+                SumAfterDiscount=0;
+            }
+       reader.close(); }
+        
      }
      
     }
