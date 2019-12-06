@@ -42,7 +42,8 @@ public class AdminClass extends EmployeeClass{
            
              if(t.equals("Inventory Employee"))
            {
-                getdata(); 
+                getdata();
+                
            }
            else if(t.equals("Marketing Employee"))
            {
@@ -57,7 +58,7 @@ public class AdminClass extends EmployeeClass{
               getdata();
            }
            f1.close();
-           
+           System.out.println("created");
        }
   
        else 
