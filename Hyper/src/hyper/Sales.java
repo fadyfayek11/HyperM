@@ -11,8 +11,8 @@ import java.util.Scanner;
  * @author marti
  */
 public class Sales extends Inventory{
-    private double SumBeforeDiscount=0;
-     private double SumAfterDiscount=0;
+    private static double SumBeforeDiscount=0;
+     private static double SumAfterDiscount=0;
      private int x=0;
     //empty constructor
     public Sales(){}
