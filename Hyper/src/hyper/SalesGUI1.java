@@ -27,10 +27,13 @@ public class SalesGUI1 extends JFrame {
    JButton b2;
    JButton b3;
    JButton b4;
+   JButton b5;
    JLabel l1;
    JTextField t1;
    JTextField t2;
    JTextField t3;
+   JTextField t4;
+   JTextField t5;
    JTable T;
     public SalesGUI1(){
         setTitle("با ليدر شوف هتكتب ايه هنا");
@@ -80,8 +83,7 @@ public class SalesGUI1 extends JFrame {
            
 
             t2=new JTextField("Quantity");
-            Font f3=new Font("TimesRoman",Font.PLAIN,15);
-           t2.setFont(f3);
+           t2.setFont(f2);
            t2.setPreferredSize(new Dimension(150, 30) );
            add(t2);
            
@@ -105,7 +107,7 @@ public class SalesGUI1 extends JFrame {
            
            
             t3=new JTextField("Product name");
-           t3.setFont(f3);
+           t3.setFont(f2);
            t3.setPreferredSize(new Dimension(150, 30) );
            add(t3);
            
@@ -146,8 +148,44 @@ public class SalesGUI1 extends JFrame {
            });
            b4.setPreferredSize(new Dimension(250, 35) );
            add(b4);
-            validate();   
-              
+           
+           
+           
+           
+           
+           
+            b5=new  JButton("return products");
+           b5.setFont(f1);
+           b5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Sales sp=new Sales();
+                try {
+                    sp.returnFromSales(Integer.parseInt(t5.getText()),t4.getText());
+                } catch (IOException ex) {
+                    Logger.getLogger(SalesGUI1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+           });
+           b5.setPreferredSize(new Dimension(130, 30) );
+           add(b5);
+            
+           
+             
+            t4=new JTextField("Product Name");
+           t4.setFont(f2);
+           t4.setPreferredSize(new Dimension(150, 30) );
+           add(t4);
+           
+
+            t5=new JTextField("Quantity");
+           t5.setFont(f2);
+           t5.setPreferredSize(new Dimension(150, 30) );
+           add(t5);
+           
+           
+           
+            validate();  
     }
      }
     
