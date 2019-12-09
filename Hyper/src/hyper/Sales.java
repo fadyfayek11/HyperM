@@ -1,8 +1,12 @@
 package hyper;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -60,21 +64,36 @@ public class Sales extends Inventory{
     
     
      public void MadeOrder(String ProductName,int quantity)throws FileNotFoundException, IOException{
-          Scanner input=new Scanner(System.in);
-                try (Scanner reader = new Scanner(new File("ProductFile.txt"))) {
-                while (reader.hasNext()){
-                    String Line=reader.nextLine();
+         File f =new File("ProductFile.txt");
+        File TempFile =new File("TempFile.txt");
+          BufferedReader reader=new BufferedReader(new FileReader(f));
+        PrintWriter  writer = new PrintWriter(new FileWriter(TempFile));
+        String Line; 
+        String Line1;
+                while ((Line=reader.readLine())!=null){
                     String[] seperate=Line.split("@");
                     if(seperate[1].equals(ProductName)){
-                        super.soldItems(quantity,ProductName); 
                          System.out.println("price before discount : "+Integer.parseInt(seperate[2])*quantity);
                         System.out.println("price after discount : "+super.getProductFinalPrice()*quantity);
                         SumBeforeDiscount+= Integer.parseInt(seperate[2])*quantity;
                         SumAfterDiscount+=super.getProductFinalPrice()*quantity;
+                        int numAmount = Integer.parseInt(seperate[3]) - quantity;
+                        seperate[3] = Integer.toString(numAmount);
+                          Line1 = seperate[0] + "@" + seperate[1] + "@" + seperate[2] + "@" + seperate[3] + "@" +seperate[4] ;
+                         writer.println(Line1);
                     } 
+                    else{
+                        writer.println(Line);
+                    }
                 }
+                 writer.close();
+                 reader.close();
+                 f.delete();
+                 TempFile.renameTo(f);
+
         }
-     }
+                
+
 
      public void EndOrder(){
           System.out.println("total before discount = "+SumBeforeDiscount);
@@ -82,4 +101,44 @@ public class Sales extends Inventory{
                 SumBeforeDiscount=0;
                 SumAfterDiscount=0;
     }
+     
+     
+     
+     
+     public void returnFromSales(int quantity , String ProductName ) throws FileNotFoundException, IOException{
+        File f =new File("ProductFile.txt");
+        File TempFile =new File("TempFile.txt");
+        BufferedReader reader=new BufferedReader(new FileReader(f));
+        PrintWriter  writer = new PrintWriter(new FileWriter(TempFile));
+        
+        String Line;   String Line1;
+        
+        while((Line=reader.readLine())!=null)
+        {
+            String[] seperated = Line.split("@");
+            if( seperated[1].equals(ProductName)){
+                 int numAmount = Integer.parseInt(seperated[3]) + quantity;
+                 seperated[3] = Integer.toString(numAmount);
+                 Line1 = seperated[0] + "@" + seperated[1] + "@" + seperated[2] + "@" + seperated[3] + "@" + seperated[4] + "@" ;
+                 writer.println(Line1);
+            }
+            else {
+                writer.println(Line);
+            }
+        }
+         
+        writer.close();
+        reader.close();
+        
+        f.delete();
+        TempFile.renameTo(f);
+    }
      }
+
+
+
+
+
+
+
+
