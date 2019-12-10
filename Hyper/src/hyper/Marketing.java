@@ -10,19 +10,39 @@ package hyper;
  * @author mohra
  */
 public class Marketing extends Products {
-
+  private int discount;
+     private String m;
+     private String list;
+     
     //default constractor
     public Marketing() {
     }
-       
-      //set reports about products 
-    public void SetReports(){
-        
+  
+    //set reports about products 
+ public void ListofProducts() throws FileNotFoundException, IOException{
+            File f = new File("ProductFile.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            
+           
+            while( (m=reader.readLine())!=null ){
+                String[] l=m.split("#");
+                for(String list:l)
+                {
+                 System.out.println(list);  
+                 
+         System.out.println("inter product name");
+         Scanner reports= new Scanner("ProductFile.txt");
+         System . out. println(reports.next());
+     
+                }
+            }
+            reader.close();
+        }
+   
+ 
+     //method make discount
+    public void discount(){
+
     }
-         
-       //method make discount
-    public void Discount(){
-        
-    }
-    
+   
 }
