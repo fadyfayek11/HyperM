@@ -76,7 +76,7 @@ public class InventoryFrame extends JFrame {
     public InventoryFrame() throws IOException, FileNotFoundException, ParseException {    
         invFrame();
         
-        
+       
     }
     
 
@@ -262,7 +262,21 @@ public class InventoryFrame extends JFrame {
        SucessORFail.setForeground(Color.WHITE);
        background.add(SucessORFail);
        
-         
+       
+        //get message when product is lacking
+       Inventory i = new Inventory();
+       String lackProduct = i.ShortageWarn();
+       if(lackProduct != null){
+           JOptionPane.showMessageDialog(this, "The Amount of "+ lackProduct +" is less than 100" , "ERROR", JOptionPane.ERROR_MESSAGE); 
+        
+       }
+       
+       //get message when expiry date of product get close
+       String x = i.ExpirationWarning();
+       if(x != null){
+           JOptionPane.showMessageDialog(this, x +" has expired" , "ERROR", JOptionPane.ERROR_MESSAGE); 
+       }
+       
        
     }
     

@@ -11,6 +11,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;  
 
 
@@ -235,7 +236,7 @@ public class Inventory extends Products{
                     if(Line.contains(this.getProductName())){ 
                         continue; 
                     }
-                    writer.write(Line);
+                    writer.println(Line);
                     update=true;
             }
             writer.close();
@@ -310,27 +311,51 @@ public class Inventory extends Products{
             return false;
         }
     }
+    
           //get message when expiry date of product get close
-    public void ExpirationWarning(int productDate , String productName){
-           //will be done after making the database or files
-    }
-     
-           //get message when product is lacking
-    public boolean ShortageWarn() throws FileNotFoundException, IOException{
+    public String ExpirationWarning() throws FileNotFoundException, IOException, ParseException{
         File f =new File("ProductFile.txt");
         BufferedReader reader=new BufferedReader(new FileReader(f));
+        
+        Date date = new Date();  
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+        String d1 = formatter.format(date);  
+        
+        String check = null;
         
         String Line;
         while((Line=reader.readLine())!=null)
         {
             String[] seperated = Line.split("@");
-            if( Integer.parseInt(seperated[3]) <=100){
+            String d2 = seperated[2];
+            
+            if(d1.equals(d2)){
+                check = seperated[1];
+            }
+            
+        }
+        
+        reader.close();
+        return check;
+        
+    }
+     
+           //get message when product is lacking
+    public String ShortageWarn() throws FileNotFoundException, IOException{
+        File f =new File("ProductFile.txt");
+        BufferedReader reader=new BufferedReader(new FileReader(f));
+        String check = null;
+        String Line;
+        while((Line=reader.readLine())!=null)
+        {
+            String[] seperated = Line.split("@");
+            if( Integer.parseInt(seperated[4]) <=100){
                 System.out.println(seperated[1]+" is lacking");
-                return true;
+                check= seperated[1];
             }
         }
         reader.close();
-        return false;
+        return check;
     }
     
             //method to manage damage items
