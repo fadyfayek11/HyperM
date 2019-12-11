@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Scanner;
@@ -27,40 +28,62 @@ public class Sales extends Inventory{
     }
     
     
-    
-    
-    public void ShowAllProducts()throws FileNotFoundException, IOException{
-     Scanner reader=new Scanner(new File("ProductFile.txt"));
-             
-         while (reader.hasNext()){
-            String Line=reader.nextLine();
-            String[] seperate=Line.split("@");
-             System.out.println(seperate[0]+seperate[1]+seperate[2]+seperate[3]);
+    public int NoOfProducts()throws FileNotFoundException, IOException{
+        LineNumberReader reader=new LineNumberReader(new FileReader("ProductFile.txt"));
+   
+    int i;
+    String Line;
+    while((Line=reader.readLine())!=null){}
+        i=reader.getLineNumber();
+        reader.close();
+        return i;
     }
-    reader.close();
-    }        
+    
+    
+    
+    public String[] ShowAllProducts()throws FileNotFoundException, IOException{
+     Scanner reader=new Scanner(new File("ProductFile.txt"));
+     int x=this.NoOfProducts();
+          String [] arr =new  String[x];
+          int i=0;
+         while (reader.hasNext()){
+                 String Line=reader.nextLine();
+                 String[] seperate=Line.split("@");
+                 arr [i]= "     "+seperate[0]+"                                                                                                     "+seperate[1]+"                                                                                                     "+ seperate[2]+ "                                                                                                     "+seperate[3]+"                                                                                                     "+ seperate[4];
+                  i++; 
+            
+             }
+             
+         return arr;
+    }       
           
             
     
-    public void SearchForProducts(String ProductName)throws FileNotFoundException, IOException{
+    public String[] SearchForProducts(String ProductName)throws FileNotFoundException,IOException{
+        String [] arr =new  String[1];
         try (Scanner reader = new Scanner(new File("ProductFile.txt"))) {
             Scanner input=new Scanner(System.in);
-            while (reader.hasNext()){
-                String Line=reader.nextLine();
-                String[] seperate=Line.split("@");
-                if(seperate[1].equals(ProductName)){
-                        System.out.println("ID :" + seperate[0]+"Product Name :"+seperate[1]+"Product Price:"+seperate[2]+"Product Amount"+seperate[3]);
+            
+         while (reader.hasNext()){
+                 String Line=reader.nextLine();
+                 String[] seperate=Line.split("@");
+                
+                   if(seperate[1].equals(ProductName)){
+                        arr [0]= "     "+seperate[0]+"                               "+seperate[1]+"                                       "+ seperate[2]+ "                                 "+seperate[3]+"                                  "+ seperate[4];
                         x=1;
                 }
-                
+            
+             }
+             if(x==0){
+            arr[0]="DOES NOT EXIST";
+        } 
+         reader.close();
             }
             
-            reader.close();
+            return arr;
         }
-        if(x==0){
-            System.out.println("NOT EXIST");
-        }
-    }
+       
+    
     
     
      public void MadeOrder(String ProductName,int quantity)throws FileNotFoundException, IOException{
