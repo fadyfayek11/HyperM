@@ -5,7 +5,9 @@
  */
 package hyper;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  *
@@ -15,9 +17,17 @@ public class Hyper {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws IOException, FileNotFoundException, ParseException {
+        Sales s=new Sales();
+//        i.DamageItem(5, "coca");
+//        
+//        i.soldItems(10, "coca");
+//        s.MadeOrder("coca",5);
+//        s.FinishOrder();
+         SalesGUI s1=new SalesGUI();
+//        System.out.println(s.NoOfProducts());
    
     }
     

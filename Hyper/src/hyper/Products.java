@@ -20,7 +20,7 @@ public class Products {
    private int productAmount ;
    private double initialPrice;
    private int discount ;
-   private final double productFinalPrice = (initialPrice*(100-discount)/100);
+   private double productFinalPrice;
 
    //EMPTY CONSTRUCTOR 
     public Products() {
@@ -88,6 +88,10 @@ public class Products {
 
     public double getProductFinalPrice() {
         return productFinalPrice;
+    }
+
+    public void setProductFinalPrice(double productFinalPrice) {
+        this.productFinalPrice = this.getInitialPrice()*(100-discount)/100;
     }
    
     

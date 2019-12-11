@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.JList;
 
 /**
  *
@@ -23,18 +25,19 @@ import javax.swing.*;
  */
 public class SalesGUI extends JFrame {
    JPanel jp=new JPanel();
-   JButton b1;
-   JButton b2;
-   JButton b3;
-   JButton b4;
-   JLabel l1;
-   JTextField t1;
-   JTextField t2;
-   JTextField t3;
+   JButton ButtonOrder;
+   JButton ButtonEnd;
+   JButton ButtonSearch;
+   JButton ButtonShowAll;
+   JButton ButtonReturn;
+   JLabel Sales;
+   JTextField TextProductName;
+   JTextField TextQuantity;
+   JTextField TextSearch;
    JTable T;
-    public SalesGUI(){
+   
+    public SalesGUI() throws IOException{
         setTitle("SALES");
-        setSize(1650, 750);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
@@ -42,116 +45,170 @@ public class SalesGUI extends JFrame {
            setLayout(new FlowLayout());
           
            
-           l1=new JLabel("Sales");  
+           Sales=new JLabel("Sales");  
            Font f=new Font("TimesRoman",Font.BOLD,80);
-           l1.setForeground(Color.white);
-           l1.setFont(f);
-           add(l1);
-           setSize(388, 388);
+           Sales.setForeground(Color.white);
+           Sales.setFont(f);
+           add(Sales);
            
            setSize(1650,750);
            
            
            
-           b1=new  JButton("order");
+           ButtonOrder=new  JButton("order");
            Font f1=new Font("TimesRoman",Font.CENTER_BASELINE,20);
-           b1.setFont(f1);
-           b1.addActionListener(new ActionListener() {
+           ButtonOrder.setFont(f1);
+           ButtonOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Sales sp=new Sales();
                 try {
-                    sp.MadeOrder(t1.getText(),Integer.parseInt(t2.getText()));
+                    sp.MadeOrder(TextProductName.getText(),Integer.parseInt(TextQuantity.getText()));
                 } catch (IOException ex) {
                     Logger.getLogger(SalesGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
            });
-           b1.setPreferredSize(new Dimension(130, 30) );
-           add(b1);
+           ButtonOrder.setPreferredSize(new Dimension(130, 30) );
+           add(ButtonOrder);
             
            
              
-            t1=new JTextField("Product Name");
+            TextProductName=new JTextField("Product Name");
             Font f2=new Font("TimesRoman",Font.PLAIN,15);
-           t1.setFont(f2);
-           t1.setPreferredSize(new Dimension(150, 30) );
-           add(t1);
+           TextProductName.setFont(f2);
+           TextProductName.setPreferredSize(new Dimension(150, 30) );
+           add(TextProductName);
            
 
-            t2=new JTextField("Quantity");
-            Font f3=new Font("TimesRoman",Font.PLAIN,15);
-           t2.setFont(f3);
-           t2.setPreferredSize(new Dimension(150, 30) );
-           add(t2);
+            TextQuantity=new JTextField("Quantity");
+           TextQuantity.setFont(f2);
+           TextQuantity.setPreferredSize(new Dimension(150, 30) );
+           add(TextQuantity);
            
            
            
            
            
-            b2=new  JButton("End Order");
-           b2.setFont(f1);
-           b2.addActionListener(new ActionListener() {
+            ButtonEnd=new  JButton("End Order");
+           ButtonEnd.setFont(f1);
+           ButtonEnd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Sales sp=new Sales();
                  sp.EndOrder();
             }
            });
-           b2.setPreferredSize(new Dimension(130, 30) );
-           add(b2);
+          ButtonEnd.setPreferredSize(new Dimension(130, 30) );
+           add(ButtonEnd);
            
            
            
            
-            t3=new JTextField("Product name");
-           t3.setFont(f3);
-           t3.setPreferredSize(new Dimension(150, 30) );
-           add(t3);
+            TextSearch=new JTextField("Search");
+           TextSearch.setFont(f2);
+            TextSearch.setPreferredSize(new Dimension(150, 30) );
+           add( TextSearch);
            
            
            
            Icon icon =new ImageIcon("top-transparent-icon-photos.jpg");
-           b3=new  JButton(icon);
-           b3.addActionListener(new ActionListener() {
+           ButtonSearch=new  JButton(icon);
+           ButtonSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                
                 Sales sp=new Sales();
+                String arr[]=null ;
                 try {
-                    sp.SearchForProducts(t3.getText());
+                    arr=sp.SearchForProducts( TextSearch.getText());
                 } catch (IOException ex) {
                     Logger.getLogger(SalesGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                if("DOES NOT EXIST".equals(arr[0])){
+                JOptionPane.showMessageDialog(null, arr[0], "ALERT", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                     JFrame frame=new JFrame();
+                    frame.setVisible(true);
+                     frame. setSize(600,200);
+                    DefaultListModel<String>List=new DefaultListModel<>();List.addElement("     ID                          Product Name                         Price                         Amount                         Discount");  
+                    List.addElement(arr[0]);
+                 final JList<String>list=new JList<>(List);
+                 JScrollPane scroll=new JScrollPane();
+                 scroll.setViewportView(list);
+                 frame.add(scroll);    
+                }  
             }
            });
-           b3.setPreferredSize(new Dimension(30, 30) );
-           add(b3);
+           ButtonSearch.setPreferredSize(new Dimension(30, 30) );
+           add(ButtonSearch);
          
           
           
           
-          b4=new  JButton("show all products"); 
-           b4.setFont(f1);
-           b4.addActionListener(new ActionListener() {
+          ButtonShowAll=new  JButton("show all products"); 
+          ButtonShowAll.setFont(f1);
+           ButtonShowAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                JFrame frame=new JFrame();
+                frame.setVisible(true);
+                frame. setSize(1650,750);
+                Sales s=new Sales(); 
+                String arr[]=null ;
+                try {
+                    arr=s.ShowAllProducts();
+                } catch (IOException ex) {
+                    Logger.getLogger(SalesGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                DefaultListModel<String>List=new DefaultListModel<>();
+                int x;
+                List.addElement("     ID                                                                                            Product Name                                                                                           Price                                                                                             Amount                                                                                       Discount");
+                try {
+                    x = s.NoOfProducts(); 
+                    for(int i=0;i<x;i++){
+                        List.addElement(arr[i]);
+                    } 
+                } catch (IOException ex) {
+                    Logger.getLogger(SalesGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                   
+                
+                 final JList<String>list=new JList<>(List);
+                 JScrollPane scroll=new JScrollPane();
+                 scroll.setViewportView(list);
+                 frame.add(scroll);
+            }
+           });
+           ButtonShowAll.setPreferredSize(new Dimension(250, 35) );
+           add(ButtonShowAll);
+           
+           
+           
+           
+           
+           
+            ButtonReturn=new  JButton("return products");
+           ButtonReturn.setFont(f1);
+           ButtonReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Sales sp=new Sales();
-                T=new JTable();
                 try {
-                    sp.ShowAllProducts();
+                    sp.returnFromSales(Integer.parseInt(TextQuantity.getText()),TextProductName.getText());
                 } catch (IOException ex) {
                     Logger.getLogger(SalesGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
            });
-           b4.setPreferredSize(new Dimension(250, 35) );
-           add(b4);
-            validate();   
-              
+           ButtonReturn.setPreferredSize(new Dimension(130, 30) );
+           add(ButtonReturn);
+           
+            validate();  
     }
-     }
-    
-            
-   
-    
 
+    
+     }

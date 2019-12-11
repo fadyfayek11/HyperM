@@ -24,8 +24,10 @@ public class Inventory extends Products{
 
     
     //defult constractor
-    public Inventory() throws IOException, FileNotFoundException, ParseException{
-        InventoryFrame Invframe = new InventoryFrame();
+    public Inventory() throws IOException, FileNotFoundException, ParseException
+    {
+    
+       InventoryFrame Invframe = new InventoryFrame();
     }
 
     /*main constractor*/

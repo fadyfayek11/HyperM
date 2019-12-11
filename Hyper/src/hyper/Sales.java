@@ -1,5 +1,6 @@
 package hyper;
 
+import GUI.InventoryFrame;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -19,12 +21,12 @@ public class Sales extends Inventory{
     private static double SumBeforeDiscount=0;
      private static double SumAfterDiscount=0;
      private int x=0;
-    //empty constructor
-    public Sales(){}
-    
+     
+     public Sales() {
+    }
     //main constructor
-    public Sales(Date productDate, String productName, int productID, int productAmount, double initialPrice, int discount){
-    super(productDate,productName, productID,  productAmount, initialPrice, discount);
+    public Sales(String productDate, String productName, int productID, int productAmount, double initialPrice) throws ParseException{
+    super(productDate,productName,  productID,  productAmount, initialPrice);
     }
     
     
@@ -96,9 +98,9 @@ public class Sales extends Inventory{
                 while ((Line=reader.readLine())!=null){
                     String[] seperate=Line.split("@");
                     if(seperate[1].equals(ProductName)){
-                         System.out.println("price before discount : "+Integer.parseInt(seperate[2])*quantity);
+                         System.out.println("price before discount : "+Double.parseDouble(seperate[2])*quantity);
                         System.out.println("price after discount : "+super.getProductFinalPrice()*quantity);
-                        SumBeforeDiscount+= Integer.parseInt(seperate[2])*quantity;
+                        SumBeforeDiscount+= Double.parseDouble(seperate[2])*quantity;
                         SumAfterDiscount+=super.getProductFinalPrice()*quantity;
                         int numAmount = Integer.parseInt(seperate[3]) - quantity;
                         seperate[3] = Integer.toString(numAmount);
