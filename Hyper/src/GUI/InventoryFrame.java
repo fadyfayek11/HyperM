@@ -6,10 +6,12 @@
 package GUI;
 
 import hyper.Inventory;
+import hyper.Products;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -43,6 +47,7 @@ public class InventoryFrame extends JFrame {
     JLabel AmountLabel = new JLabel ("Product Amount:");
     JLabel dateLabel = new JLabel ("Product Date:");
     JLabel SucessORFail = new JLabel ("");
+    JTable ListTable = new JTable();
     
     Font font = new Font("SansSerif", Font.BOLD, 50);
     Font font1 = new Font("SansSerif", Font.BOLD, 20);
@@ -53,6 +58,7 @@ public class InventoryFrame extends JFrame {
     JTextField TextFieldproductAmount = new JTextField();
     JTextField TextFieldproductPrice = new JTextField();
     JTextField TextFieldproductExpiryDate = new JTextField();
+    
     
     JButton searchButton = new JButton();
     JButton addButton = new JButton("Add Product");
@@ -65,20 +71,20 @@ public class InventoryFrame extends JFrame {
     
     
     
-    public InventoryFrame() throws IOException {    
+    public InventoryFrame() throws IOException, FileNotFoundException, ParseException {    
         invFrame();
-        //addRawData();
+        
     }
     
 
-    public void invFrame() throws IOException{
+    public void invFrame() throws IOException, FileNotFoundException, ParseException{
         
         
         this.setTitle("Inventory Section");
         this.setSize(1300,750);
         this.setResizable(false);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         //this.setLayout(null);
         
@@ -112,9 +118,9 @@ public class InventoryFrame extends JFrame {
                 try {
                     SearchactionPerformed(evt);
                 } catch (IOException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 } catch (ParseException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 }
             }
         });
@@ -182,9 +188,9 @@ public class InventoryFrame extends JFrame {
                 try {
                     addactionPerformed(evt);
                 } catch (IOException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 } catch (ParseException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                   System.out.println(ex);
                 }
             }
         });
@@ -202,9 +208,9 @@ public class InventoryFrame extends JFrame {
                 try {
                     DeleteactionPerformed(evt);
                 } catch (IOException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 } catch (ParseException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 }
             }
         });
@@ -220,9 +226,9 @@ public class InventoryFrame extends JFrame {
                 try {
                     updateactionPerformed(evt);
                 } catch (IOException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 } catch (ParseException ex) {
-                    Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println(ex);
                 }
             }
         });
@@ -233,6 +239,18 @@ public class InventoryFrame extends JFrame {
        listButton.setBounds(230, 530, 150, 32);
        listButton.setBackground(Color.WHITE);
        background.add(listButton);
+       listButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    addRawData();
+                } catch (IOException ex) {
+                    System.out.println(ex);
+                } catch (ParseException ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
        
        
        //sucess or fail
@@ -242,25 +260,11 @@ public class InventoryFrame extends JFrame {
        background.add(SucessORFail);
        
        
-       //Table
-//       JTable ListTable = new JTable();
-//       ListTable.setBounds(300, 200, 300, 200);
-//       ListTable.setModel(new javax.swing.table.DefaultTableModel(
-//            new Object [][] {
-//                {null, null, null, null, null},
-//                {null, null, null, null, null},
-//                {null, null, null, null, null},
-//                {null, null, null, null, null}
-//            },
-//            new String [] {
-//                "Product Name", "Product ID", "Product Price", "product Amount", "product Date"
-//            }
-//        ));
-//       
-//       background.add(ListTable);
-//       
-        
+             
+       
     }
+    
+
 
     private void resetData() {
         TextFieldproductName.setText("");
@@ -305,7 +309,7 @@ public class InventoryFrame extends JFrame {
     public void SearchactionPerformed(ActionEvent e) throws IOException, ParseException {
         if(!TextFieldSearch.getText().equals("")){
             Inventory i = new Inventory();
-            Inventory returned = (Inventory) i.SearchProduct(TextFieldSearch.getText());
+            Inventory returned =   (Inventory) i.SearchProduct(TextFieldSearch.getText());
             if(returned.getProductID() > 0){
                 setData(returned);
                 SucessORFail.setText("");
@@ -372,26 +376,47 @@ public class InventoryFrame extends JFrame {
             
    }
 
-//   public void addRawData() throws IOException, FileNotFoundException{
-//       DefaultTableModel model = (DefaultTableModel) ListTable.getModel();
-//       Object rawData[] = new Object[9];
-//       
-//       Inventory i = new Inventory();
-//       ArrayList<Products> Product = new ArrayList<Products>();
-//       
-//       Product = i.ListProduct();
-//       
-//       for(Products x : Product){
-//           rawData[0] = x.getProductName();
-//           rawData[1] = x.getProductID();
-//           rawData[2] = x.getProductFinalPrice();
-//           rawData[3] = x.getProductAmount();
-//           rawData[4] = x.getProductDate();
-//           
-//           model.addRow(rawData);
-//       }
-//       
-//   }
+   public void addRawData() throws IOException, FileNotFoundException, ParseException{
+       DefaultTableModel model = (DefaultTableModel) ListTable.getModel();
+       
+       String columnName[] = {"Product ID", "Product Name" , "Date", "Price" , "Amount"};
+       String data[][]={ {"","","","",""},{"","","","",""},{"","","","",""},
+                      {"","","","",""},{"","","","",""},{"","","","",""},
+                      {"","","","",""},{"","","","",""},{"","","","",""},
+                      {"","","","",""},{"","","","",""},{"","","","",""},
+                      {"","","","",""},{"","","","",""},{"","","","",""},
+                      {"","","","",""},{"","","","",""},{"","","","",""}}; 
+       
+       
+       
+       final JTable ListTable = new JTable(data , columnName);
+       JScrollPane scrollPane = new JScrollPane(ListTable);
+       ListTable.setBounds(700, 230, 600, 280);
+       ListTable.setBackground(Color.WHITE);
+       background.add(ListTable);
+       
+       Inventory i = new Inventory();
+       
+       ArrayList<Products> Product = new ArrayList<Products>();
+       Product = i.ListProduct();
+       int j = 0 ;
+       
+        for (Products x : Product) {
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+            String strDate = formatter.format(x.getProductDate());
+            
+            data[j][0] = Integer.toString(x.getProductID());
+            data[j][1] =x.getProductName();
+            data[j][2] = Double.toString(x.getInitialPrice());
+            data[j][3] = strDate;
+            data[j][4] = Integer.toString(x.getProductAmount()); 
+             j++; 
+            model.addRow(data);
+        }
+       
+   }
+   
+   
+}
 
     
-}

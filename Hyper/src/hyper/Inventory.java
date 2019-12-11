@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,6 +8,9 @@ package hyper;
 
 import GUI.InventoryFrame;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;  
 
 
@@ -20,40 +24,62 @@ public class Inventory extends Products{
 
     
     //defult constractor
-    public Inventory(){
-        //InventoryFrame Invframe = new InventoryFrame();
+    public Inventory() throws IOException, FileNotFoundException, ParseException{
+        InventoryFrame Invframe = new InventoryFrame();
     }
 
     /*main constractor*/
-    public Inventory(Date productDate, String productName, int productID, int productAmount, double initialPrice, int discount) {
-        super(productDate, productName, productID, productAmount, initialPrice, discount);
+    public Inventory(String productDate, String productName, int productID, int productAmount, double initialPrice) throws ParseException {
+        String sDate1= productDate;
+        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
+        
+        this.setProductID(productID);
+        this.setProductName(productName);
+        this.setProductAmount(productAmount);
+        this.setProductDate(date1);
+        this.setInitialPrice(initialPrice);
+        
     }
     
        //SearchProduct
-   public void SearchProduct(String productName ) throws IOException {
+   public Object SearchProduct(String productName ) throws IOException, ParseException {
        File f =new File("ProductFile.txt");
         FileReader f2=new FileReader(f);
         BufferedReader f3=new BufferedReader(f2);
         String line;
         boolean found=false;
+        Inventory x = new Inventory();
+        
         while((line=f3.readLine())!=null)
         {
             if(line.contains(productName))
             {
                 String[] l=line.split("@");
+                
+                String sDate1= l[2];
+                Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+                
+                x.setProductID(Integer.parseInt(l[0]));
+                x.setProductName(l[1]);
+                x.setProductDate(date1);
+                x.setInitialPrice(Double.parseDouble(l[3]));
+                x.setProductAmount(Integer.parseInt(l[4]));
+                
                 for(String data:l)
                 System.out.println(data);
+                
             }
         }
         
         f2.close();
         f3.close();
+        return x;
     }
        
   
     
          //add product
-    public void AddProducts(/*int date,*/ String name ,int productID , int amount , double productPrice , int discount) throws IOException,FileNotFoundException {
+    public boolean AddProducts() throws IOException,FileNotFoundException {
             File f =new File("ProductFile.txt");
             FileWriter f1 = new FileWriter(f,true);
             FileReader f2=new FileReader(f);
@@ -66,13 +92,13 @@ public class Inventory extends Products{
                 {
                     String[] seperated = line.split("@");
                     
-                    if( Integer.parseInt(seperated[0]) == productID ){  //check id id is unique or not
+                    if( Integer.parseInt(seperated[0]) == getProductID() ){  //check id id is unique or not
                         System.out.println("this id is already existed ,Please enter correct id");
                         found=true;
                         break;
                     }
                     
-                    if( seperated[1].equals(name) ){ //check not repeat product name
+                    if( seperated[1].equals(getProductName()) ){ //check not repeat product name
                         System.out.println("this product name is already existed");
                         found=true;
                         break;
@@ -80,25 +106,34 @@ public class Inventory extends Products{
 
                 }
                 if(!found){
-                    f1.write(productID+"@");
-                    f1.write(name+"@");
-                   //f1.write(date+"@");
-                    f1.write(productPrice+"@");
-                    f1.write(amount+"@");
-                    f1.write(discount+"@\n");
+                    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+                    String strDate = formatter.format(getProductDate());  
+        
+                    f1.write(getProductID()+"@");
+                    f1.write(getProductName()+"@");
+                    f1.write(strDate+"@");
+                    f1.write(getInitialPrice()+"@");
+                    f1.write(getProductAmount()+"@\n");
+                  
                     f1.close();
                 }
                 f3.close();
                 f1.close();
                 f2.close();
             }
+            
+            if (found == true){
+                return false;
+            }
+            else
+                return true;
     }
             
 
     
     
          //remove product
-    public void DeleteProduct(String productName) throws IOException{
+    public boolean DeleteProduct(String productName) throws IOException{
             File f =new File("ProductFile.txt");
             File TempFile= new File("TempFile.txt");
             BufferedReader reader=new BufferedReader(new FileReader(f));
@@ -117,47 +152,72 @@ public class Inventory extends Products{
             
             f.delete();
             boolean DeleteSuccessful = TempFile.renameTo(f);
-            if(DeleteSuccessful)
+            if(DeleteSuccessful){
                 System.out.println("THE PRODUCT DELETED IS SUCCESSFULLY ");
-            else
+                return true;
+            }
+            else{
                 System.out.println("ENTER CORRECT PRODUCT-ID AND PRODUCT-NAME ");
+                return false;
+            }
     }
     
     //List Products
-    public void ListProduct() throws FileNotFoundException, IOException{
+    public ArrayList<Products> ListProduct() throws FileNotFoundException, IOException, ParseException{
             File f = new File("ProductFile.txt");
             BufferedReader reader = new BufferedReader(new FileReader(f));
+            ArrayList <Products> Product = new ArrayList <Products>();
             
             String line;
             
             while( (line=reader.readLine())!=null ){
                 String[] l=line.split("@");
+                Products x = new Products();
+                
+                 String sDate1= l[2];
+                 Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
+                
                 for(String lists:l)
                 {
                  System.out.println(lists);   
                 }
+                
+                x.setProductID(Integer.parseInt(l[0]));
+                x.setProductName(l[1]);
+                x.setProductDate(date1);
+                x.setInitialPrice(Double.parseDouble(l[3]));
+                x.setProductAmount(Integer.parseInt(l[4]));
+                
+                Product.add(x);
             }
             reader.close();
+            return Product;
         }
     
           //update product
-    public void UpdateProduct(String productName , int productID , double productPrice, int productAmount /*,Date productDate*/ , int discount) throws IOException , FileNotFoundException{
+    public boolean UpdateProduct() throws IOException , FileNotFoundException{
             File f =new File("ProductFile.txt");
             File TempFile= new File("TempFile.txt");
             BufferedReader reader=new BufferedReader(new FileReader(f));
             PrintWriter  writer =new PrintWriter(new FileWriter(TempFile));
             
+            boolean update = false;
+            
             //Check if product is already exists in the ProductFile or not
-            if( this.SearchProductIfExist(productName) ){
+            if( this.SearchProductIfExist(getProductName()) ){
                 
-                if( this.uniqueID(productID)){ //Check if id is unique
+                if( uniqueID( getProductID() , getProductName()) ){ //Check if id is unique
                     if(TempFile.exists()){
-                        writer.write(productID+"@");
-                        writer.write(productName+"@");
-                        /*writer.write(productDate+"@");*/
-                        writer.write(productPrice+"@");
-                        writer.write(productAmount+"@");
-                        writer.write(discount+"@\n");
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+                        String strDate = formatter.format(this.getProductDate());
+            
+                        writer.write(this.getProductID()+"@");
+                        writer.write(this.getProductName()+"@");
+                        writer.write(strDate+"@");
+                        writer.write(this.getInitialPrice()+"@");
+                        writer.write(this.getProductAmount()+"@\n");
+                        
+                        update=true;
                     }
                 }
                 else{
@@ -171,10 +231,11 @@ public class Inventory extends Products{
             //write in tempFile all products
             String Line;
             while((Line=reader.readLine())!=null){ //read from product file
-                    if(Line.contains(productName)){ 
+                    if(Line.contains(this.getProductName())){ 
                         continue; 
                     }
                     writer.write(Line);
+                    update=true;
             }
             writer.close();
             reader.close();
@@ -186,30 +247,41 @@ public class Inventory extends Products{
                 System.out.println("THE PRODUCT IS UPDATE ");
             else
                 System.out.println("PLEASE TRY AGAIN");
+            
+            return update;
     }
 
        
     //method to check if id is unique or not
-    private boolean uniqueID(int productID) throws IOException , FileNotFoundException{
+    private boolean uniqueID(int productID , String productName) throws IOException , FileNotFoundException{
         File f =new File("ProductFile.txt");
         FileReader f1 = new FileReader(f);
         BufferedReader reader=new BufferedReader(f1);
         String Line; boolean found=false;
+        
         while((Line=reader.readLine())!=null)
         {
             String[] seperated = Line.split("@");
-                if( Integer.parseInt(seperated[0]) == productID ){  //check id id is unique or not
-                    System.out.println("this id is already existed ,Please enter correct id");
-                    found=true;
-                    break;
-                }
+            
+            if( Integer.parseInt(seperated[0]) == productID && seperated[1] == productName){
+                found=true;
+            }
+
+            if( Integer.parseInt(seperated[0]) == productID && seperated[1] != productName){  //check id id is unique or not
+                System.out.println("this id is already existed , Please enter correct id");
+                found=false;
+            }
+                
+                
         }
         reader.close();
         f1.close();
-        if(found)
+        if(found == true){
             return false;
-        else
+        }
+        else{
             return true;
+        }
     }
   
 
@@ -243,7 +315,7 @@ public class Inventory extends Products{
     }
      
            //get message when product is lacking
-    public void ShortageWarn() throws FileNotFoundException, IOException{
+    public boolean ShortageWarn() throws FileNotFoundException, IOException{
         File f =new File("ProductFile.txt");
         BufferedReader reader=new BufferedReader(new FileReader(f));
         
@@ -253,9 +325,11 @@ public class Inventory extends Products{
             String[] seperated = Line.split("@");
             if( Integer.parseInt(seperated[3]) <=100){
                 System.out.println(seperated[1]+" is lacking");
+                return true;
             }
         }
         reader.close();
+        return false;
     }
     
             //method to manage damage items
