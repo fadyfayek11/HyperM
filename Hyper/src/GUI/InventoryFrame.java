@@ -8,6 +8,7 @@ package GUI;
 import hyper.Inventory;
 import hyper.Products;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -38,7 +40,7 @@ import javax.swing.table.DefaultTableModel;
 public class InventoryFrame extends JFrame {
 
     JLabel background ;
-     
+    
     JLabel inventory = new JLabel ("INVENTORY");
     JLabel searchLabel = new JLabel ("Search For A Product");
     JLabel nameLabel = new JLabel ("Product Name:");
@@ -73,6 +75,7 @@ public class InventoryFrame extends JFrame {
     
     public InventoryFrame() throws IOException, FileNotFoundException, ParseException {    
         invFrame();
+        
         
     }
     
@@ -259,10 +262,11 @@ public class InventoryFrame extends JFrame {
        SucessORFail.setForeground(Color.WHITE);
        background.add(SucessORFail);
        
-       
-             
+         
        
     }
+    
+    
     
 
 
