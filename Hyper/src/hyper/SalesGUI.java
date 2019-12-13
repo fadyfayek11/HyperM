@@ -261,17 +261,4 @@ public class SalesGUI extends JFrame {
    
     
     
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
      }
