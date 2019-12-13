@@ -40,7 +40,7 @@ public class SalesGUI extends JFrame {
    JTextField TextProductName;
    JTextField TextQuantity;
    JTextField TextSearch;
-  
+ 
    
     public SalesGUI() throws IOException{
         setTitle("SALES");
@@ -112,7 +112,7 @@ public class SalesGUI extends JFrame {
                      frame. setSize(750,100);
                     DefaultListModel<String>List=new DefaultListModel<>();
                      JList<String>list=new JList<>(List);
-                     List.addElement("     ID                          Product Name                         Price                         Amount                         Discount                          Date");  
+                     List.addElement("      ID                           Product Name                           Date                                        Price                                   Amount");
                     List.addElement(arr[0]);
                     frame.setResizable(false);
                      frame.add(list);
@@ -233,12 +233,14 @@ public class SalesGUI extends JFrame {
                 Sales s=new Sales(); 
                 String arr[]=null ;
                 int x;
-                DefaultListModel<String>List=new DefaultListModel<>();
+                 DefaultListModel<String>List=new DefaultListModel<>();
                 JList<String>list=new JList<>(List);
                 JScrollPane scroll=new JScrollPane();
                 scroll.setViewportView(list);
-                List.addElement("       ID                                                              Product Name                                                             Price                                                             Amount                                                            Discount                                                              Date");
+                List.addElement("      ID                                                                           Product Name                                                                          Date                                                                                       Price                                                                                    Amount");
                 frame.add(scroll);
+                scroll.setBounds(500, 400, 500, 500);
+               
                 try {
                          arr=s.ShowAllProducts();
                          x = s.NoOfProducts(); 

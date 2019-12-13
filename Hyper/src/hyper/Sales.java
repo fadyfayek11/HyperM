@@ -50,7 +50,7 @@ public class Sales extends Inventory{
          while (reader.hasNext()){
                  String Line=reader.nextLine();
                  String[] seperate=Line.split("@");
-                 arr [i]= "     "+seperate[0]+"                                                                     "+seperate[1]+"                                                                       "+ seperate[2]+ "                                                                      "+seperate[3]+"                                                                      "+ seperate[4]+"                                                                       "+seperate[5];
+                 arr [i]= "     "+seperate[0]+"                                                                                   "+seperate[1]+"                                                                                     "+ seperate[2]+ "                                                                                    "+seperate[3]+"                                                                                    "+ seperate[4];
                   i++; 
             
              }
@@ -70,7 +70,7 @@ public class Sales extends Inventory{
                  String[] seperate=Line.split("@");
                 
                    if(seperate[1].equals(ProductName)){
-                        arr [0]= "     "+seperate[0]+"                               "+seperate[1]+"                                       "+ seperate[2]+ "                                 "+seperate[3]+"                                  "+ seperate[4]+ "                                 "+seperate[5];
+                        arr [0]= "     "+seperate[0]+"                                    "+seperate[1]+"                                              "+ seperate[2]+ "                              "+seperate[3]+"                                 "+ seperate[4];
                         x=1;
                 }
             
@@ -100,11 +100,11 @@ public class Sales extends Inventory{
               
                     String[] seperate=Line.split("@");
                     if(seperate[1].equals(ProductName)){
-                        SumBeforeDiscount+= Double.parseDouble(seperate[2])*quantity;
+                        SumBeforeDiscount+= Double.parseDouble(seperate[3])*quantity;
                         SumAfterDiscount+=super.getProductFinalPrice()*quantity;
-                        int numAmount = Integer.parseInt(seperate[3]) - quantity;
-                        seperate[3] = Integer.toString(numAmount);
-                          Line1 = seperate[0] + "@" + seperate[1] + "@" + seperate[2] + "@" + seperate[3] + "@" +seperate[4]+ "@" +seperate[5] ;
+                        int numAmount = Integer.parseInt(seperate[4]) - quantity;
+                        seperate[4] = Integer.toString(numAmount);
+                          Line1 = seperate[0] + "@" + seperate[1] + "@" + seperate[2] + "@" + seperate[3] + "@" +seperate[4]+"@" ;
                          writer.println(Line1);
                     } 
                     else{
@@ -145,9 +145,9 @@ public class Sales extends Inventory{
         {
             String[] seperated = Line.split("@");
             if( seperated[1].equals(ProductName)){
-                 int numAmount = Integer.parseInt(seperated[3]) + quantity;
-                 seperated[3] = Integer.toString(numAmount);
-                 Line1 = seperated[0] + "@" + seperated[1] + "@" + seperated[2] + "@" + seperated[3] + "@" + seperated[4] + "@" + seperated[5];
+                 int numAmount = Integer.parseInt(seperated[4]) + quantity;
+                 seperated[4] = Integer.toString(numAmount);
+                 Line1 = seperated[0] + "@" + seperated[1] + "@" + seperated[2] + "@" + seperated[3] + "@" + seperated[4]+"@";
                  writer.println(Line1);
             }
             else {
