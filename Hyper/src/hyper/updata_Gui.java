@@ -43,25 +43,25 @@ public class updata_Gui extends JFrame {
         setVisible(true);
  
           l1.setForeground(Color.white);
-          l1.setBounds(300,100,170,50);
+          l1.setBounds(300,100,170,40);
           l1.setFont(f);
           l2.setForeground(Color.white);
-          l2.setBounds(300,200,170,50);
+          l2.setBounds(300,180,170,40);
           l2.setFont(f);
           l3.setForeground(Color.white);
-          l3.setBounds(300,300,170,50);
+          l3.setBounds(300,240,170,40);
           l3.setFont(f); 
           l4.setForeground(Color.white);
-          l4.setBounds(300,400,170,50);
+          l4.setBounds(300,320,170,40);
           l4.setFont(f); 
           l5.setForeground(Color.white);
-          l5.setBounds(300,500,170,50);
+          l5.setBounds(300,400,170,40);
           l5.setFont(f); 
           l6.setForeground(Color.white);
-          l6.setBounds(300,600,170,50);
+          l6.setBounds(300,480,170,40);
           l6.setFont(f); 
           l7.setForeground(Color.white);
-          l7.setBounds(300,700,170,50);
+          l7.setBounds(300,540,170,40);
            l7.setFont(f);
           add(l1);
         add(l2);
@@ -72,25 +72,25 @@ public class updata_Gui extends JFrame {
         add(l7);
                  
   
-          co.setBounds(400,300,170,50);
+          co.setBounds(400,240,170,40);
          add(co);
           
-          co1.setBounds(400,400,170,50);
+          co1.setBounds(400,320,170,40);
          add(co1);
           
-          t1.setBounds(400, 100, 170, 50);
+          t1.setBounds(400, 100, 170, 40);
          
-          t2.setBounds(400, 200, 170, 50);
+          t2.setBounds(400, 180, 170, 40);
           
-          t3.setBounds(400, 500, 170, 50);
+          t3.setBounds(400, 400, 170, 40);
            
-          t4.setBounds(400, 600, 170, 50);
+          t4.setBounds(400, 480, 170, 40);
         add(t1);
         add(t2);
         add(t3);
         add(t4);
 
-t5.setBounds(400, 700, 170, 50);
+t5.setBounds(400, 540, 170, 40);
 add(t5);
 
 b.setBounds(1000, 400, 150,40 );
