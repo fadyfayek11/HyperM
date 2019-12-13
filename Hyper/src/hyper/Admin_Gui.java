@@ -32,8 +32,8 @@ public class Admin_Gui extends JFrame {
     JButton b4= new JButton("Show Employee List");
     JButton b5= new JButton("Search for Employee ");
     JTextField  t1=new JTextField();
-    JPasswordField  t2=new JPasswordField ();
-    JTextField  t3=new JTextField();
+    JPasswordField  t3=new JPasswordField ();
+    JTextField  t2=new JTextField();
     JTextField  t4=new JTextField();
     JLabel l1=new JLabel("Id");
     JLabel l3=new JLabel("Password");
@@ -165,7 +165,7 @@ public class Admin_Gui extends JFrame {
             }
             
                             });   
-                            b5.addActionListener((ActionEvent e)->{
+             b5.addActionListener((ActionEvent e)->{
                        String txt=co.getSelectedItem().toString();    
                        String name=t3.getSelectedText();
             try {
@@ -176,7 +176,7 @@ public class Admin_Gui extends JFrame {
     });
                             
                             
-                           b3.addActionListener((ActionEvent e)->{
+           b3.addActionListener((ActionEvent e)->{
             Admin_Gui h2=new Admin_Gui();
             h2.setVisible(true);
             setSize(1650,750);
