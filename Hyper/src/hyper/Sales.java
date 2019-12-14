@@ -63,7 +63,7 @@ public class Sales extends Inventory{
     public String[] SearchForProducts(String ProductName)throws FileNotFoundException,IOException{
         String [] arr =new  String[1];
         try (Scanner reader = new Scanner(new File("ProductFile.txt"))) {
-            Scanner input=new Scanner(System.in);
+            
             
          while (reader.hasNext()){
                  String Line=reader.nextLine();
@@ -85,14 +85,11 @@ public class Sales extends Inventory{
         }
        
     
-    
-    
      public void MadeOrder(String ProductName,int quantity)throws FileNotFoundException, IOException{
          File f =new File("ProductFile.txt");
         File TempFile =new File("TempFile.txt");
         BufferedReader reader=new BufferedReader(new FileReader(f));
-        PrintWriter  writer = new PrintWriter(new FileWriter(TempFile));
-        
+        PrintWriter  writer = new PrintWriter(new FileWriter(TempFile),true);
         String Line; 
 
         String Line1;
@@ -120,16 +117,6 @@ public class Sales extends Inventory{
                 
 
 
-     public String[] EndOrder(){
-        String arr[]=new String[2];
-          arr[0]=Double.toString(SumBeforeDiscount);
-               arr[1]=Double.toString(SumAfterDiscount);
-                SumBeforeDiscount=0;
-                SumAfterDiscount=0;
-                
-        return arr;
-    }
-     
      
      
      
@@ -160,7 +147,26 @@ public class Sales extends Inventory{
         f.delete();
         TempFile.renameTo(f);
     }
-     }
+     
+    
+     public String[] EndOrder(){
+        String arr[]=new String[2];
+          arr[0]=Double.toString(SumBeforeDiscount);
+               arr[1]=Double.toString(SumAfterDiscount);
+                SumBeforeDiscount=0;
+                SumAfterDiscount=0;
+                
+        return arr;
+    }
+     
+     
+     
+}  
+     
+     
+     
+     
+     
 
 
 

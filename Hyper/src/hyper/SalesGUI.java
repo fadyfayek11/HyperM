@@ -41,7 +41,7 @@ public class SalesGUI extends JFrame {
    JTextField TextQuantity;
    JTextField TextSearch;
  
-   
+   JLabel jl=new JLabel("");
     public SalesGUI() throws IOException{
         setTitle("SALES");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -138,9 +138,13 @@ public class SalesGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 try {
+                    jl.setText("Added to cart");
+                
                     Sales sp=new Sales();
                     sp.MadeOrder(TextProductName.getText(),Integer.parseInt(TextQuantity.getText()));
                     
+                    TextProductName.setText("");
+                    TextQuantity.setText("");
                 } catch (IOException ex) {
                    System.out.println(ex.getMessage());
                 }
@@ -149,8 +153,10 @@ public class SalesGUI extends JFrame {
            });
            
             
-           
-             
+           jl.setBounds(450, 420, 150, 20);
+           jl.setFont(f1);
+           jl.setForeground(Color.white);
+            add(jl); 
            
            
  //text "product name"          
@@ -206,6 +212,8 @@ public class SalesGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 try {
+                    jl.setText("Item returned");
+                    
                     Sales sp=new Sales();
                     sp.returnFromSales(Integer.parseInt(TextQuantity.getText()),TextProductName.getText());
                 } catch (IOException ex) {
@@ -227,6 +235,7 @@ public class SalesGUI extends JFrame {
            ButtonShowAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                
                  JFrame frame=new JFrame();
                 frame.setVisible(true);
                 frame. setSize(1650,750);
