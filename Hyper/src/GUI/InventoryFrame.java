@@ -10,7 +10,6 @@ import hyper.Inventory;
 import hyper.LoginFrame;
 import hyper.Products;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,8 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -29,7 +26,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -43,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
 public class InventoryFrame extends JFrame implements ActionListener {
 
     JLabel background ;
-    
+   
     JLabel inventory = new JLabel ("INVENTORY");
     JLabel searchLabel = new JLabel ("Search For A Product");
     JLabel nameLabel = new JLabel ("Product Name:");
@@ -463,10 +459,10 @@ public class InventoryFrame extends JFrame implements ActionListener {
             data[j][2] = Double.toString(x.getInitialPrice());
             data[j][3] = strDate;
             data[j][4] = Integer.toString(x.getProductAmount()); 
-             j++; 
+            j++; 
             model.addRow(data);
         }
-       
+       //model.fireTableDataChanged(); 
    }
 
     @Override
