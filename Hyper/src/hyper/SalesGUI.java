@@ -40,6 +40,7 @@ public class SalesGUI extends JFrame {
    JTextField TextProductName;
    JTextField TextQuantity;
    JTextField TextSearch;
+   int i=0;
  
    JLabel jl=new JLabel("");
     public SalesGUI() throws IOException{

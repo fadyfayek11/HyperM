@@ -43,17 +43,23 @@ public class Sales extends Inventory{
     
     
     public String[] ShowAllProducts()throws FileNotFoundException, IOException{
-     Scanner reader=new Scanner(new File("ProductFile.txt"));
-     int x=this.NoOfProducts();
-          String [] arr =new  String[x];
-          int i=0;
-         while (reader.hasNext()){
+        int x=this.NoOfProducts(); 
+        int i=0;
+         String [] arr =new  String[x];
+         try(Scanner reader=new Scanner(new File("ProductFile.txt"));){
+              while (reader.hasNext()){
                  String Line=reader.nextLine();
                  String[] seperate=Line.split("@");
                  arr [i]= "     "+seperate[0]+"                                                                                   "+seperate[1]+"                                                                                     "+ seperate[2]+ "                                                                                    "+seperate[3]+"                                                                                    "+ seperate[4];
                   i++; 
             
              }
+         }
+     
+     
+         
+         
+        
              
          return arr;
     }       
