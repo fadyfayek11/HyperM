@@ -39,7 +39,7 @@ public class updata_Gui extends JFrame {
          setTitle("update Employee Info");
          setSize(1650,750);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setContentPane(new JLabel(new ImageIcon("IMG-20191201-WA0008.png")));
+    setContentPane(new JLabel(new ImageIcon("marco.jpeg")));
         setVisible(true);
  
           l1.setForeground(Color.white);
@@ -105,13 +105,30 @@ add(b);
      String name=t3.getText().toString();
      String phone=t4.getText().toString();
      String pass=t5.getText().toString();
+     
      AdminClass A2=new AdminClass();
+     if (pass.length() < 8) {
+                  JOptionPane.showMessageDialog(null,"the password should be more than 8 char","failed",JOptionPane.ERROR_MESSAGE);
+        } else {
+                   
+             A2.setPassword(pass);
+        }
+                  if (phone.length() <= 11 && phone.length() > 10) {
+
+            A2.setNumber(phone);
+        } else {
+                      JOptionPane.showMessageDialog(null,"incorrect phone number-should be 11 number","failed",JOptionPane.ERROR_MESSAGE);
+                  }
         try {
+            if (A2.getPassword()==pass&&A2.getNumber()==phone){
             A2.UpdateInfo(old_id, new_id, oldtype, newtype, name, phone, pass);
+            A2.cupdate(old_id, new_id, oldtype, newtype);
+            JOptionPane.showMessageDialog(null,"New data has been updated","succssesful",JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (IOException ex) {
             Logger.getLogger(updata_Gui.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"OOOOPS!","Failed!",JOptionPane.ERROR_MESSAGE);
         }
-       
              });
-    }
+       }
 }

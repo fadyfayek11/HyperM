@@ -21,15 +21,17 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JList;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.Border;
 
 /**
  *
  * @author marti
  */
-public class SalesGUI extends JFrame {
+public class SalesGUI extends JFrame implements ActionListener {
    JPanel jp=new JPanel();
-   JButton ButtonBack;
+   JButton logout;
+   JButton info;
    JButton ButtonOrder;
    JButton ButtonEnd;
    JButton ButtonSearch;
@@ -40,7 +42,6 @@ public class SalesGUI extends JFrame {
    JTextField TextProductName;
    JTextField TextQuantity;
    JTextField TextSearch;
-   int i=0;
  
    JLabel jl=new JLabel("");
     public SalesGUI() throws IOException{
@@ -49,15 +50,37 @@ public class SalesGUI extends JFrame {
         setVisible(true);
         setSize(1650,750);
         setContentPane(new JLabel(new ImageIcon("IMG-20191201-WA0008.png")));
-          
+        this.setLocationRelativeTo(null); 
+        setResizable(false);    
 
-
-
-//Button "back"
-           Icon icon =new ImageIcon("");
-           ButtonBack=new  JButton(icon);
-           ButtonBack.setBounds(0, 0, 25, 25);
-           add(ButtonBack);
+//Button "log out"
+           Icon icon =new ImageIcon("out.png");
+           logout=new  JButton(icon);
+           logout.setBounds(1350,600, 50, 50);
+           logout.setBackground(Color.white);
+           JLabel out=new JLabel("Log Out");
+           out.setForeground(Color.WHITE);
+           out.setBounds(1420,600,100,50);
+           Font font=new Font("SansSerif", Font.BOLD, 24);
+           out.setFont(font);
+            logout.addActionListener(this);
+            add(out);
+            add(logout);
+            
+            
+            
+            //Button "info"
+           Icon iconinfo =new ImageIcon("info.png");
+           info=new  JButton(iconinfo);
+           info.setBounds(1350,500, 50, 50);
+           info.setBackground(Color.white);
+           JLabel info1=new JLabel("Info");
+           info1.setForeground(Color.WHITE);
+           info1.setBounds(1420,500,100,50);
+           info1.setFont(font);
+            info.addActionListener(this);
+            add(info);
+            add(info1);
 //           ButtonSearch.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent ae) {
@@ -67,7 +90,8 @@ public class SalesGUI extends JFrame {
 //           });
            
 
-
+     ImageIcon img = new ImageIcon("icon.png");
+     setIconImage(img.getImage());
 
 
 // Label "Sales"
@@ -268,6 +292,25 @@ public class SalesGUI extends JFrame {
 
            
             validate();  
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       if (e.getSource()==logout)
+        {
+            setVisible(false);
+            LoginFrame loginFrame=new LoginFrame();
+            loginFrame.loginto();
+        }
+       if (e.getSource()==info)
+        {
+           InfoGui jGui=new InfoGui();
+           try {
+               jGui.infoway();
+           } catch (IOException ex) {
+               Logger.getLogger(SalesGUI.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
     }
 
    

@@ -1,82 +1,119 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hyper;
 
-import java.io.*;
+import GUI.InventoryFrame;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Fady Fayek
- */
 public class User  {
-
-   
+    public static ArrayList<String> infoofemployee=new ArrayList<>();
+   public static String finaltype;
     public User() {
     }
-
-    public void login(int id,String password) throws IOException
+ 
+    public  int login(String id,String password) throws IOException
     {
+         int ssid = Integer.parseInt(id);
         BufferedReader f2=null;
+        ArrayList<String> info=new ArrayList<>();
         try {
             File f=new File(id+".txt");
             f2 = new BufferedReader(new FileReader(f));
             String line;
             while((line=f2.readLine())!=null)
             {
-                if(line.contains(password))
+                String[] ss=line.split("@");
+                for(String l:ss)
                 {
-                    if(line.contains("Admin"))
+                    info.add(l);
+                }
+          
+            }
+            if (info.get(3).equals(password))
+            {
+               if(info.get(1).equals("Admin"))
                     {
-                        //OPEN FRAME OF ADMIN
-                        ShowMyInfo(id);
-                        System.out.println("hello admin");
+                        
+                        Admin_Gui admin_Gui=new Admin_Gui();
+                        admin_Gui.setVisible(true);
+                        JOptionPane.showMessageDialog(null,"Hello,Admin.");
+                        finaltype="Admin";
+                        return  1;
+                        
                     }
-                    else if(line.contains("Inventory Employee"))
+                    else if(info.get(1).equals("Inventory Employee"))
                     {
-                        //OPEN FRAME OF Inventory Employee
-                        ShowMyInfo(id);
-                        System.out.println("Inventory Employee");
+                   try {
+                       InventoryFrame invf=new InventoryFrame();
+                       JOptionPane.showMessageDialog(null,"Hello,Inventory Employee."); 
+                       finaltype="Inventory Employee";
+                       return  1;
+                   } catch (ParseException ex) {
+                       Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                       
+                        
                     }
-                    else if(line.contains("Seller Employee"))
+                    else if(info.get(1).equals("Seller Employee"))
                     {
                         //OPEN FRAME OF Seller Employee
-                        ShowMyInfo(id);
-                        System.out.println("Seller Employee");
+                       
+                        SalesGUI salesGUI=new SalesGUI();
+                        JOptionPane.showMessageDialog(null,"Hello,Seller Employee.");
+                        finaltype="Seller Employee";
+                        
+                        return  1;
+                       
                     }
-                    else if(line.contains("Marketing Employee"))
+                    else if(info.get(1).equals("Marketing Employee"))
                     {
                         //OPEN FRAME OF Marketing Employee
-                        ShowMyInfo(id);
-                        System.out.println("Marketing Employee");
+                      
+                      JOptionPane.showMessageDialog(null,"Hello,Marketing Employee");
+                      return  1;
+                      
                     }
                     else 
                     {
                         //kill him
-                        System.out.println("Sorry not sorry");
+                        JOptionPane.showMessageDialog(null,"Bad information");
+                        
+                      
                     }
                     
-                    
-                }
             }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Bad information");
+            }
+         
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null,"Bad information");
+            //Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 f2.close();
             } catch (IOException ex) {
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(null,"Bad information");
+                //Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+       
+        return 0; 
     }
     public void ShowMyInfo(int id) throws IOException
     {
+        
+        
         File f=new File(id+".txt");
         try {
             BufferedReader f2=new BufferedReader(new FileReader(f));
@@ -86,16 +123,17 @@ public class User  {
                 String[] s=line.split("@");
                 for(String ss:s)
                 {
-                    System.out.println(ss);
+                    infoofemployee.add(ss);
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex+"");            
+//Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
     //Update
-    public  void UpdateInfo(String id,String type,String newname,String newphone,String newpassword) {
+    public  void UpdateInfo(int  id,String type,String newname,String newphone,String newpassword) {
         File f = new File(id + ".txt");
         
         try {
@@ -111,7 +149,8 @@ public class User  {
                
                 
                 f1.close();
-                
+                JOptionPane.showMessageDialog(null,"Update done");
+
                 cupdate(id,type);
                 
             } else {
@@ -119,13 +158,14 @@ public class User  {
             }
             
         } catch (IOException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex+"");            
+//Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
 
       
     }
 
-     public int cupdate(String oldid,String Type) throws IOException
+     public int cupdate(int oldid,String Type) throws IOException
    {
                   ArrayList<String> ss = new ArrayList<>();
                   ArrayList<String> nss = new ArrayList<>();

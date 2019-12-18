@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import hyper.InfoGui;
 import hyper.Inventory;
+import hyper.LoginFrame;
 import hyper.Products;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -21,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,7 +40,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mohra
  */
-public class InventoryFrame extends JFrame {
+public class InventoryFrame extends JFrame implements ActionListener {
 
     JLabel background ;
     
@@ -67,6 +70,8 @@ public class InventoryFrame extends JFrame {
     JButton updateButton = new JButton("Update Product");
     JButton deleteButton = new JButton("Delete Product");
     JButton listButton = new JButton("Show All Products");
+    JButton logout;
+    JButton info;
     
     Border border = BorderFactory.createLineBorder(Color.ORANGE, 5);
     
@@ -84,17 +89,17 @@ public class InventoryFrame extends JFrame {
         
         
         this.setTitle("Inventory Section");
-        this.setSize(1300,750);
+        this.setSize(1650,750);
         this.setResizable(false);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+        this.setLocationRelativeTo(null);
         //this.setLayout(null);
         
         //background
-        ImageIcon image = new ImageIcon("background.jpg");
+        ImageIcon image = new ImageIcon("IMG-20191201-WA0008.png");
         background = new JLabel("",image,JLabel.CENTER);
-        background.setBounds(0, 0, 1400 , 750);
+        background.setBounds(0, 0, 1650 , 750);
         add(background);
         
 
@@ -142,6 +147,36 @@ public class InventoryFrame extends JFrame {
         background.add(TextFieldproductName);
         
         
+        //Button "log out"
+           Icon icon =new ImageIcon("out.png");
+           logout=new  JButton(icon);
+           logout.setBounds(1350,600, 50, 50);
+           logout.setBackground(Color.white);
+           JLabel out=new JLabel("log out");
+           out.setForeground(Color.WHITE);
+           out.setBounds(1420,600,100,50);
+           Font font=new Font("SansSerif", Font.BOLD, 24);
+           out.setFont(font);
+           logout.addActionListener(this);
+           background.add(out);
+           background.add(logout);
+           
+             //Button "info"
+           Icon iconinfo =new ImageIcon("info.png");
+           info=new  JButton(iconinfo);
+           info.setBounds(1350,500, 50, 50);
+           info.setBackground(Color.white);
+           JLabel info1=new JLabel("Info");
+           info1.setForeground(Color.WHITE);
+           info1.setBounds(1420,500,100,50);
+           info1.setFont(font);
+            info.addActionListener(this);
+            background.add(info);
+            background.add(info1);
+        
+        ImageIcon img = new ImageIcon("icon.png");
+        setIconImage(img.getImage());
+            
         //productID
         IDLabel.setBounds(20, 270, 200, 32);
         IDLabel.setFont(font1);
@@ -433,6 +468,25 @@ public class InventoryFrame extends JFrame {
         }
        
    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+              if (e.getSource()==logout)
+        {
+            setVisible(false);
+            LoginFrame loginFrame=new LoginFrame();
+            loginFrame.loginto();
+        }
+               if (e.getSource()==info)
+        {
+                  try {
+                      InfoGui jGui=new InfoGui();
+                      jGui.infoway();
+                  } catch (IOException ex) {
+                      Logger.getLogger(InventoryFrame.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+        }
+    }
    
    
 }

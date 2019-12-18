@@ -9,7 +9,7 @@ package hyper;
 
 
 /*employee class */
-public class EmployeeClass {
+public abstract class EmployeeClass {
    
 
    private String phonenumber;
